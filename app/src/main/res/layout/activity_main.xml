@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:id="@+id/main"
+    android:background="@drawable/cooking"
+    android:weightSum="1">
+
+    <ListView
+    android:layout_width="fill_parent"
+    android:layout_height="326dp"
+        android:id="@+id/listView"
+        android:layout_above="@+id/addRecipeBtn"
+        android:layout_below="@+id/suggestRecipeBtn"></ListView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/buttonStyle"
+        android:text="@string/suggestRecipe"
+        android:id="@+id/suggestRecipeBtn"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignEnd="@+id/listView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/buttonStyle"
+        android:text="@string/addRecipe"
+        android:id="@+id/addRecipeBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/listView"
+        android:layout_alignEnd="@+id/listView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/buttonStyle"
+        android:text="@string/myRecipes"
+        android:id="@+id/myRecipesBtn"
+        android:layout_alignTop="@+id/addRecipeBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+</RelativeLayout>

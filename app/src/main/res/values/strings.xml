@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RecipeSuggestor</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="addRecipe">Add Recipe</string>
+    <string name="myRecipes">My Recipes</string>
+    <string name="suggestRecipe">Suggest Recipe</string>
+    <string name="title_activity_add_recipe">AddRecipeActivity</string>
+    <string name="title_activity_my_recipes">MyRecipesActivity</string>
+    <string name="title_activity_suggest_recipe">SuggestRecipeActivity</string>
+
+</resources>
