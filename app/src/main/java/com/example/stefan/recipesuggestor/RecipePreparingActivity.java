@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import Models.Recipe;
+import Persistors.SQLiteDBManager;
 
 
 public class RecipePreparingActivity extends Activity implements View.OnClickListener{
@@ -18,6 +19,7 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
     private static final String TITLE_MESSAGE = "How to prepare";
     Recipe recipe;
     Button createRecipeBtn;
+    SQLiteDBManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,8 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
     }
 
     private void init(){
+        dbManager = new SQLiteDBManager(getApplicationContext());
+
         recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
         TextView titleTextView = (TextView)findViewById(R.id.recipePreparingTitleId);
         titleTextView.setText(TITLE_MESSAGE + " " + recipe.getName() + "?");
@@ -64,6 +68,10 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
             String recipePreparingStr = recipePreparing.getText().toString();
             if (recipePreparingStr != null && !recipePreparingStr.isEmpty()){
                 recipe.setPreparing(recipePreparingStr);
+
+                dbManager.addRecord(recipe.getName(),recipe.getIngredients(),
+                        recipe.getSpices(),recipe.getPreparing());
+                Toast.makeText(this,"Added to database",Toast.LENGTH_LONG).show();
             }
             else{
                 Toast.makeText(this,"Recipe preparing input field cannot be empty!"

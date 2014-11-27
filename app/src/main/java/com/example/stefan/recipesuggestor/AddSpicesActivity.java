@@ -63,11 +63,11 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         if (this.goToRecipePreparingBtn.getId() == view.getId()){
             EditText spicesEditText = (EditText)findViewById(R.id.spicesInputId);
-            String spicesStr = spicesEditText.getText().toString();
+            String spicesStr = spicesEditText.getText().toString().trim();
 
             if (spicesStr != null && !spicesStr.isEmpty()){
-                List<String> spicesList = converter.convertStringToList(spicesStr);
-                recipe.setSpices(spicesList);
+
+                recipe.setSpices(spicesStr);
 
                 Intent i = new Intent(this,RecipePreparingActivity.class);
                 i.putExtra("Recipe",recipe);

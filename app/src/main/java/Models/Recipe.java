@@ -12,14 +12,12 @@ public class Recipe implements Serializable{
 
     private String name;
     private String preparing;
-    private List<String> ingredients;
-    private List<String> spices;
+    private String ingredients;
+    private String spices;
 
 
     public Recipe(String name){
         this.name = name;
-        this.ingredients = new ArrayList<String>();
-        this.spices = new ArrayList<String>();
         this.timesUsed = 0;
     }
 
@@ -31,19 +29,19 @@ public class Recipe implements Serializable{
         this.name = name;
     }
 
-    public List<String> getIngredients(){
+    public String getIngredients(){
         return this.ingredients;
     }
 
-    public void setIngredients(List<String> ingredients){
+    public void setIngredients(String ingredients){
         this.ingredients = ingredients;
     }
 
-    public List<String> getSpices(){
+    public String getSpices(){
         return this.spices;
     }
 
-    public void setSpices(List<String> spices){
+    public void setSpices(String spices){
         this.spices = spices;
     }
 

@@ -74,10 +74,10 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         if (goToAddSpicesBtn.getId() == view.getId()){
             //get ingredients as string and convert it to List by splitting it
             EditText ingredientsEditText = (EditText)findViewById(R.id.ingredientsInputId);
-            String ingredientsStr = ingredientsEditText.getText().toString();
+            String ingredientsStr = ingredientsEditText.getText().toString().trim().toLowerCase();
             if (ingredientsStr != null && !ingredientsStr.isEmpty()){
-                ingredients = this.converter.convertStringToList(ingredientsStr);
-                recipe.setIngredients(ingredients);
+
+                recipe.setIngredients(ingredientsStr);
 
                 Intent i = new Intent(this,AddSpicesActivity.class);
                 i.putExtra("Recipe",recipe);
