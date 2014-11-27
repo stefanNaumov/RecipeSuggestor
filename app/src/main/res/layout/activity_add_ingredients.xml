@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.stefan.recipesuggestor.AddIngredientsActivity"
+    android:background="@drawable/choppingboard"
+    android:id="@+id/addIngredientsLayout">
+
+    <TextView android:text="@string/ingredients"
+        style="@style/textViewStyle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="67dp"
+        android:id="@+id/ingredientsViewId" />
+
+    <TextView
+        style="@style/textViewStyle"
+        android:text=""
+        android:id="@+id/recipeNameId"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/ingredientsViewId"
+        android:layout_alignEnd="@+id/ingredientsViewId"
+        android:layout_alignParentTop="true" />
+
+    <EditText
+        style="@style/editTextStyle"
+        android:id="@+id/ingredientsInputId"
+        android:layout_below="@+id/ingredientsViewId"
+        android:layout_alignRight="@+id/ingredientsViewId"
+        android:layout_alignEnd="@+id/ingredientsViewId"
+        android:layout_above="@+id/goToAddSpicesBtn" />
+
+    <Button
+        style="@style/nextButtonStyle"
+        android:id="@+id/goToAddSpicesBtnId"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/ingredientsInputId"
+        android:layout_alignEnd="@+id/ingredientsInputId"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

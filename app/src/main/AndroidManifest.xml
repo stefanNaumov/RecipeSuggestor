@@ -28,6 +28,18 @@
             android:name="com.example.stefan.recipesuggestor.SuggestRecipeActivity"
             android:label="@string/title_activity_suggest_recipe" >
         </activity>
+        <activity
+            android:name="com.example.stefan.recipesuggestor.AddIngredientsActivity"
+            android:label="@string/title_activity_add_ingredients" >
+        </activity>
+        <activity
+            android:name="com.example.stefan.recipesuggestor.AddSpicesActivity"
+            android:label="@string/title_activity_add_spices" >
+        </activity>
+        <activity
+            android:name="com.example.stefan.recipesuggestor.RecipePreparingActivity"
+            android:label="@string/title_activity_recipe_preparing" >
+        </activity>
     </application>
 
 </manifest>

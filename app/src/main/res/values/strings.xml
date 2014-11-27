@@ -10,5 +10,15 @@
     <string name="title_activity_add_recipe">AddRecipeActivity</string>
     <string name="title_activity_my_recipes">MyRecipesActivity</string>
     <string name="title_activity_suggest_recipe">SuggestRecipeActivity</string>
+    <string name="addIngredients">Add Ingredients</string>
+    <string name="title_activity_add_ingredients">AddIngredientsActivity</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="title_activity_add_spices">AddSpicesActivity</string>
+    <string name="addIngredient">Add Ingredient</string>
+    <string name="Next">next</string>
+    <string name="next">Next</string>
+    <string name="addSpices">Add Spices</string>
+    <string name="title_activity_recipe_preparing">RecipePreparingActivity</string>
+    <string name="createRecipe">Create Recipe</string>
 
 </resources>

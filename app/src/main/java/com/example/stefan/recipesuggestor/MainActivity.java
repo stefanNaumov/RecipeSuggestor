@@ -59,6 +59,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         else if (view.getId() == this.myRecipesBtn.getId()){
             i = new Intent(this, MyRecipesActivity.class);
+
         }
         else {
             i = new Intent(this, SuggestRecipeActivity.class);
