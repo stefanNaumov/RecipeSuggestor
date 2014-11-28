@@ -7,6 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.List;
+
+import Models.SQLiteRecipeModel;
+import Persistors.SQLiteDBHelper;
+import Persistors.SQLiteDBManager;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -25,7 +32,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         myRecipesBtn.setOnClickListener(this);
         suggestRecipeBtn.setOnClickListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
