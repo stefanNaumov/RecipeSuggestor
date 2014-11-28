@@ -2,31 +2,50 @@ package com.example.stefan.recipesuggestor;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import Models.Recipe;
+import Tasks.KeyboardHider;
 
 
-public class AddRecipeActivity extends Activity implements View.OnClickListener{
+public class AddRecipeActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
     Button gotoAddIngredientsBtn;
     Recipe newRecipe;
+    EditText nameEditText;
+    KeyboardHider keyBrdHider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
-        gotoAddIngredientsBtn = (Button)findViewById(R.id.goToAddIngredientsBtnId);
-        gotoAddIngredientsBtn.setOnClickListener(this);
+        this.init();
     }
 
+    private void init(){
+        gotoAddIngredientsBtn = (Button)findViewById(R.id.goToAddIngredientsBtnId);
+        gotoAddIngredientsBtn.setOnClickListener(this);
+
+        nameEditText = (EditText)findViewById(R.id.recipeNameId);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.addRecipeLayout);
+        layout.setOnTouchListener(this);
+
+        keyBrdHider = new KeyboardHider(this);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,7 +73,7 @@ public class AddRecipeActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         if (gotoAddIngredientsBtn.getId() == view.getId()){
             //get recipe name on onclick
-            EditText nameEditText = (EditText)findViewById(R.id.recipeNameId);
+
             String recipeName = nameEditText.getText().toString();
 
             if (recipeName != null && !recipeName.isEmpty()){
@@ -68,5 +87,10 @@ public class AddRecipeActivity extends Activity implements View.OnClickListener{
                 Toast.makeText(this, "Please enter recipe name", Toast.LENGTH_LONG).show();
             }
         }
+    }
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        keyBrdHider.hideKeyobard(view);
+        return false;
     }
 }

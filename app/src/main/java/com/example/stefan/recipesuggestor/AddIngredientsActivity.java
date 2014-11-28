@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,14 +20,16 @@ import java.util.List;
 
 import Models.Recipe;
 import Tasks.Converter;
+import Tasks.KeyboardHider;
 
 
-public class AddIngredientsActivity extends Activity implements View.OnClickListener{
+public class AddIngredientsActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
     Recipe recipe;
     Button goToAddSpicesBtn;
     List<String> ingredients;
     Converter converter;
+    KeyboardHider keyBrdHider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +44,15 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         goToAddSpicesBtn.setOnClickListener(this);
 
         recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-        TextView recipeNameTextView = (TextView)findViewById(R.id.recipeNameId);
+        TextView recipeNameTextView = (TextView)findViewById(R.id.recipeTitleNameId);
         recipeNameTextView.setText(recipe.getName());
 
         ingredients = new ArrayList<String>();
         converter = new Converter();
+
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
+        layout.setOnTouchListener(this);
+        keyBrdHider = new KeyboardHider(this);
     }
 
     @Override
@@ -90,4 +99,9 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         }
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        keyBrdHider.hideKeyobard(view);
+        return false;
+    }
 }

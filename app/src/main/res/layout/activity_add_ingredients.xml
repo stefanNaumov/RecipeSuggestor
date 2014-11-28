@@ -8,6 +8,16 @@
     android:background="@drawable/choppingboard"
     android:id="@+id/addIngredientsLayout">
 
+    <TextView
+        style="@style/textViewStyle"
+        android:text=""
+        android:id="@+id/recipeTitleNameId"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/ingredientsViewId"
+        android:layout_alignEnd="@+id/ingredientsViewId"
+        android:layout_alignParentTop="true" />
+
     <TextView android:text="@string/ingredients"
         style="@style/textViewStyle"
         android:layout_alignParentTop="true"
@@ -16,23 +26,12 @@
         android:layout_marginTop="67dp"
         android:id="@+id/ingredientsViewId" />
 
-    <TextView
-        style="@style/textViewStyle"
-        android:text=""
-        android:id="@+id/recipeNameId"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/ingredientsViewId"
-        android:layout_alignEnd="@+id/ingredientsViewId"
-        android:layout_alignParentTop="true" />
-
     <EditText
         style="@style/editTextStyle"
         android:id="@+id/ingredientsInputId"
         android:layout_below="@+id/ingredientsViewId"
         android:layout_alignRight="@+id/ingredientsViewId"
-        android:layout_alignEnd="@+id/ingredientsViewId"
-        android:layout_above="@+id/goToAddSpicesBtn" />
+        android:layout_alignEnd="@+id/ingredientsViewId" />
 
     <Button
         style="@style/nextButtonStyle"

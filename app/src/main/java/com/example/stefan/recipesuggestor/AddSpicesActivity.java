@@ -5,22 +5,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.List;
 
 import Models.Recipe;
 import Tasks.Converter;
+import Tasks.KeyboardHider;
 
 
-public class AddSpicesActivity extends Activity implements View.OnClickListener{
+public class AddSpicesActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
     Recipe recipe;
     Button goToRecipePreparingBtn;
     Converter converter;
+    KeyboardHider keyBrdHider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,11 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener{
         goToRecipePreparingBtn.setOnClickListener(this);
 
         converter = new Converter();
+
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.addSpicesLayout);
+        layout.setOnTouchListener(this);
+
+        keyBrdHider = new KeyboardHider(this);
     }
 
     @Override
@@ -78,5 +87,11 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener{
                 Toast.makeText(this,"Spices input field cannot be empty",Toast.LENGTH_LONG);
             }
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        keyBrdHider.hideKeyobard(view);
+        return false;
     }
 }

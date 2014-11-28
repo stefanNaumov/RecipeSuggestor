@@ -4,22 +4,26 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import Models.Recipe;
 import Persistors.SQLiteDBManager;
+import Tasks.KeyboardHider;
 
 
-public class RecipePreparingActivity extends Activity implements View.OnClickListener{
+public class RecipePreparingActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
     private static final String TITLE_MESSAGE = "How to prepare";
     Recipe recipe;
     Button createRecipeBtn;
     SQLiteDBManager dbManager;
+    KeyboardHider keyBrdHider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,11 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
         titleTextView.setText(TITLE_MESSAGE + " " + recipe.getName() + "?");
         createRecipeBtn = (Button)findViewById(R.id.createRecipeBtnId);
         createRecipeBtn.setOnClickListener(this);
+
+        LinearLayout layout = (LinearLayout)findViewById(R.id.recipePreparingLayout);
+        layout.setOnTouchListener(this);
+
+        keyBrdHider = new KeyboardHider(this);
     }
 
     @Override
@@ -80,5 +89,11 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
 
             /*TODO Create SQLite database and add recipe to it*/
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        keyBrdHider.hideKeyobard(view);
+        return false;
     }
 }
