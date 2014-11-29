@@ -1,5 +1,5 @@
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/addRecipeLayout"
     android:layout_width="match_parent"
@@ -22,16 +22,17 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:id="@+id/recipeNameId"
         android:layout_weight="0.21"
-        android:layout_marginTop="20dp"
-        style="@style/editTextStyle"/>
+        style="@style/editTextStyle"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="225dp"
+        android:layout_width="322dp"
         style="@style/nextButtonStyle"
         android:id="@+id/goToAddIngredientsBtnId"
-        android:layout_gravity="right"
-        android:layout_marginTop="100dp"/>
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import Models.Recipe;
@@ -41,7 +42,7 @@ public class AddRecipeActivity extends Activity implements View.OnClickListener,
 
         nameEditText = (EditText)findViewById(R.id.recipeNameId);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.addRecipeLayout);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.addRecipeLayout);
         layout.setOnTouchListener(this);
 
         keyBrdHider = new KeyboardHider(this);
