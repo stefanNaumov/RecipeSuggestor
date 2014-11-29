@@ -15,16 +15,17 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import Models.Recipe;
+import Models.SQLiteRecipeModel;
 
 /**
  * Created by Stefan on 11/29/2014.
  */
-public class RecipeAdapter extends ArrayAdapter<Recipe> {
+public class RecipeAdapter extends ArrayAdapter<SQLiteRecipeModel> {
     private Context context;
     private int layoutId;
-    private List<Recipe> recipeList;
+    private List<SQLiteRecipeModel> recipeList;
 
-    public RecipeAdapter(Context context, int resource, List<Recipe> objects) {
+    public RecipeAdapter(Context context, int resource, List<SQLiteRecipeModel> objects) {
         super(context, resource, objects);
         this.context = context;
         this.layoutId = resource;
@@ -35,16 +36,15 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View currRow = convertView;
         RecipeHolder holder;
-        Recipe recipe;
+        SQLiteRecipeModel recipe;
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        currRow = inflater.inflate(this.layoutId,parent,false);
 
         if (currRow == null){
-            TextView nameTextView = (TextView)currRow.findViewById(R.id.recipe_row_name);
 
+            currRow = inflater.inflate(this.layoutId,parent,false);
             holder = new RecipeHolder();
-            holder.name = nameTextView;
+            holder.name = (TextView)currRow.findViewById(R.id.recipe_row_name);
 
             currRow.setTag(holder);
         }
@@ -61,7 +61,8 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
         return currRow;
     }
 
-    static class RecipeHolder{
+     static class RecipeHolder{
+
         private TextView name;
     }
 }

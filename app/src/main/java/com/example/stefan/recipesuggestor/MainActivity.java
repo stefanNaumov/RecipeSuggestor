@@ -18,6 +18,7 @@ import java.util.List;
 import Models.SQLiteRecipeModel;
 import Persistors.SQLiteDBHelper;
 import Persistors.SQLiteDBManager;
+import Utils.RecipeAdapter;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -25,7 +26,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button addRecipeBtn, myRecipesBtn, suggestRecipeBtn;
     private SQLiteDBManager dbManager;
     private List<SQLiteRecipeModel> modelsList;
-    private ArrayAdapter<String> adapter;
+    private RecipeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +95,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         for (int i = 0;i < modelsList.size(); i++){
             values.add(modelsList.get(i).getName());
         }
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        adapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,modelsList);
 
         listView.setAdapter(adapter);
     }
