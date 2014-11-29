@@ -44,6 +44,13 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         }
     }
 
+    public void updateTimesSeen(String name, int timesUsed){
+        ContentValues values = new ContentValues();
+        values.put(SQLiteDBHelper.COLUMN_TIMES_USED,timesUsed);
+
+        this.updateRecord(name, values);
+    }
+
     public SQLiteRecipeModel getByName(String name){
         String query = "SELECT " + SQLiteDBHelper.COLUMN_NAME + ", "
                 + SQLiteDBHelper.COLUMN_INGREDIENTS + ", "
@@ -106,6 +113,18 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         }
 
         return null;
+    }
+
+    private void updateRecord(String username, ContentValues values){
+        try {
+            open();
+
+            this.db.update(SQLiteDBHelper.TABLE_RECIPES,values,
+                    SQLiteDBHelper.COLUMN_NAME + "=?", new String[]{username});
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     private SQLiteRecipeModel mapModel(Cursor cursor){
