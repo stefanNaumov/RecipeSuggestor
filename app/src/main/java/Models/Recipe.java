@@ -52,4 +52,12 @@ public class Recipe implements Serializable{
     public void setPreparing(String preparing){
         this.preparing = preparing;
     }
+
+    public int getTimesUsed(){
+        return this.timesUsed;
+    }
+
+    public void setTimesUsed(int timesUsed){
+        this.timesUsed = timesUsed;
+    }
 }

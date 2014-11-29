@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.stefan.recipesuggestor" >
 
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/poticon"
@@ -40,6 +42,14 @@
             android:name="com.example.stefan.recipesuggestor.RecipePreparingActivity"
             android:label="@string/title_activity_recipe_preparing" >
         </activity>
+        <activity
+            android:name="com.example.stefan.recipesuggestor.RecipeDetailsActivity"
+            android:label="@string/title_activity_recipe_details" >
+        </activity>
+        <activity
+            android:name="com.example.stefan.recipesuggestor.HowToPrepareActivity"
+            android:label="@string/title_activity_how_to_prepare" >
+        </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
 </manifest>

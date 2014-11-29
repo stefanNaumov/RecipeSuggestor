@@ -6,8 +6,11 @@ import android.database.Cursor;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import Models.Recipe;
 import Models.SQLiteRecipeModel;
 
 /**
@@ -51,7 +54,7 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         this.updateRecord(name, values);
     }
 
-    public SQLiteRecipeModel getByName(String name){
+    public Recipe getByName(String name){
         String query = "SELECT " + SQLiteDBHelper.COLUMN_NAME + ", "
                 + SQLiteDBHelper.COLUMN_INGREDIENTS + ", "
                 + SQLiteDBHelper.COLUMN_SPICES + ", "
@@ -62,7 +65,7 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
 
         String recipeName,ingredients,spices,preparing;
         int timesUsed;
-        SQLiteRecipeModel recipeModel;
+        Recipe recipeModel;
         try {
             open();
 
@@ -84,15 +87,15 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         return null;
     }
 
-    public List<SQLiteRecipeModel> getAll(){
+    public List<Recipe> getAll(){
         String query = "SELECT * FROM " + SQLiteDBHelper.TABLE_RECIPES;
 
-        SQLiteRecipeModel currModel;
+        Recipe currModel;
 
         try {
             open();
             Cursor cursor = db.rawQuery(query,null);
-            List<SQLiteRecipeModel> modelsList = new ArrayList<SQLiteRecipeModel>(cursor.getCount());
+            List<Recipe> modelsList = new ArrayList<Recipe>(cursor.getCount());
 
             if (cursor.moveToFirst()){
                 while (!cursor.isAfterLast()){
@@ -115,6 +118,20 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         return null;
     }
 
+    public List<Recipe> getSortedByTimesUsed(){
+        List<Recipe> collection = this.getAll();
+        Collections.sort(collection,new TimesUsedComparator());
+
+        return collection;
+    }
+
+    public List<Recipe> getSortedByName(){
+        List<Recipe> colleciton = this.getAll();
+        Collections.sort(colleciton,new RecipeNameComparator());
+
+        return colleciton;
+    }
+
     private void updateRecord(String username, ContentValues values){
         try {
             open();
@@ -127,10 +144,10 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         }
     }
 
-    private SQLiteRecipeModel mapModel(Cursor cursor){
+    private Recipe mapModel(Cursor cursor){
         String recipeName,ingredients,spices,preparing;
         int timesUsed;
-        SQLiteRecipeModel recipeModel;
+        Recipe recipeModel;
 
         recipeName = cursor.getString(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_NAME));
         ingredients = cursor.getString(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_INGREDIENTS));
@@ -138,8 +155,28 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         preparing = cursor.getString(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_PREPARING));
         timesUsed = cursor.getInt(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_TIMES_USED));
 
-        recipeModel = new SQLiteRecipeModel(recipeName,ingredients,spices,preparing,timesUsed);
+        recipeModel = new Recipe(recipeName);
+        recipeModel.setIngredients(ingredients);
+        recipeModel.setSpices(spices);
+        recipeModel.setPreparing(preparing);
+        recipeModel.setTimesUsed(timesUsed);
 
         return recipeModel;
+    }
+
+    static class TimesUsedComparator implements Comparator<Recipe>{
+
+        @Override
+        public int compare(Recipe recipe, Recipe recipe2) {
+            return Integer.compare(recipe.getTimesUsed(),recipe2.getTimesUsed());
+        }
+    }
+
+    static class RecipeNameComparator implements Comparator<Recipe>{
+
+        @Override
+        public int compare(Recipe recipe, Recipe recipe2) {
+            return recipe.getName().compareTo(recipe2.getName());
+        }
     }
 }

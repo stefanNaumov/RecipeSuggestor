@@ -20,5 +20,9 @@
     <string name="addSpices">Add Spices</string>
     <string name="title_activity_recipe_preparing">RecipePreparingActivity</string>
     <string name="createRecipe">Create Recipe</string>
+    <string name="title_activity_recipe_details">RecipeDetailsActivity</string>
+    <string name="howToPrepare">How To Prepare</string>
+    <string name="spices">Spices</string>
+    <string name="title_activity_how_to_prepare">HowToPrepareActivity</string>
 
 </resources>

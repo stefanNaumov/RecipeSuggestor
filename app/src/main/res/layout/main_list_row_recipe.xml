@@ -7,10 +7,9 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="59dp"
+        android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/recipe_row_name"
-        style="@style/textViewStyle"
-        android:textColor="#FA4902"
-        android:textSize="40sp"/>
+        style="@style/transparentBackground"
+        android:background="@drawable/textviewshape"/>
 </LinearLayout>

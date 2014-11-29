@@ -4,12 +4,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.stefan.recipesuggestor.MyRecipesActivity"
-    android:background="@drawable/choppingboard">
+    tools:context="com.example.stefan.recipesuggestor.HowToPrepareActivity"
+    android:background="@drawable/choppingboard"
+    android:weightSum="1">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_weight="1" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/howToPrepareTextViewId"
+
+        style="@style/howToPrepareTextStyle"/>
 </LinearLayout>

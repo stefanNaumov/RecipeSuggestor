@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,17 +17,18 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import Models.Recipe;
 import Models.SQLiteRecipeModel;
 import Persistors.SQLiteDBHelper;
 import Persistors.SQLiteDBManager;
 import Utils.RecipeAdapter;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Button addRecipeBtn, myRecipesBtn, suggestRecipeBtn;
     private SQLiteDBManager dbManager;
-    private List<SQLiteRecipeModel> modelsList;
+    private List<Recipe> modelsList;
     private RecipeAdapter adapter;
 
     @Override
@@ -88,15 +91,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         dbManager = new SQLiteDBManager(getApplicationContext());
 
-        modelsList = dbManager.getAll();
+        modelsList = dbManager.getSortedByTimesUsed();
 
         ListView listView = (ListView)findViewById(R.id.list);
-        List<String> values = new ArrayList<String>();
-        for (int i = 0;i < modelsList.size(); i++){
-            values.add(modelsList.get(i).getName());
-        }
+
         adapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,modelsList);
 
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        Intent intent = new Intent(this,RecipeDetailsActivity.class);
+        intent.putExtra("Recipe",modelsList.get(i));
+
+        startActivity(intent);
     }
 }

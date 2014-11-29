@@ -20,12 +20,12 @@ import Models.SQLiteRecipeModel;
 /**
  * Created by Stefan on 11/29/2014.
  */
-public class RecipeAdapter extends ArrayAdapter<SQLiteRecipeModel> {
+public class RecipeAdapter extends ArrayAdapter<Recipe> {
     private Context context;
     private int layoutId;
-    private List<SQLiteRecipeModel> recipeList;
+    private List<Recipe> recipeList;
 
-    public RecipeAdapter(Context context, int resource, List<SQLiteRecipeModel> objects) {
+    public RecipeAdapter(Context context, int resource, List<Recipe> objects) {
         super(context, resource, objects);
         this.context = context;
         this.layoutId = resource;
@@ -36,7 +36,7 @@ public class RecipeAdapter extends ArrayAdapter<SQLiteRecipeModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View currRow = convertView;
         RecipeHolder holder;
-        SQLiteRecipeModel recipe;
+        Recipe recipe;
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
