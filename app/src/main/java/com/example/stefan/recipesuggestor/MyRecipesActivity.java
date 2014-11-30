@@ -1,31 +1,36 @@
 package com.example.stefan.recipesuggestor;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Models.Recipe;
 import Persistors.SQLiteDBManager;
+import Tasks.KeyboardHider;
 import Utils.RecipeAdapter;
 
 
-public class MyRecipesActivity extends Activity{
+public class MyRecipesActivity extends Activity implements AdapterView.OnItemClickListener,View.OnTouchListener{
 
-    ListView listView;
-    RecipeAdapter adapter;
-    SQLiteDBManager dbManager;
-    List<Recipe> recipeList;
-    EditText searchText;
+    private ListView mListView;
+    private RecipeAdapter mAdapter;
+    private SQLiteDBManager mDbManager;
+    private List<Recipe> mRecipeList;
+    private EditText mSearchText;
+    private KeyboardHider mKeyboardHider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +63,19 @@ public class MyRecipesActivity extends Activity{
     }
 
     private void init(){
-        listView = (ListView)findViewById(R.id.myRecipesListViewId);
-        dbManager = new SQLiteDBManager(this);
-        recipeList = dbManager.getSortedByName();
-        adapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,recipeList);
-        searchText = (EditText)findViewById(R.id.myRecipesSearchViewId);
-        listView.setAdapter(adapter);
+        mKeyboardHider = new KeyboardHider(this);
+        mListView = (ListView)findViewById(R.id.myRecipesListViewId);
+        mDbManager = new SQLiteDBManager(this);
+        mRecipeList = mDbManager.getSortedByName();
+        mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mRecipeList);
+        mSearchText = (EditText)findViewById(R.id.myRecipesSearchViewId);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(this);
 
-        this.AddTextChangeListener(searchText);
+        LinearLayout layout = (LinearLayout)findViewById(R.id.myRecipesLayoutId);
+        layout.setOnTouchListener(this);
+
+        this.AddTextChangeListener(mSearchText);
     }
 
     private void AddTextChangeListener(final EditText editText){
@@ -80,17 +90,17 @@ public class MyRecipesActivity extends Activity{
                 List<Recipe> newList = new ArrayList<Recipe>();
                 newList.clear();
                 int textLength = editText.getText().length();
-                for (int i = 0; i < recipeList.size(); i++){
+                for (int i = 0; i < mRecipeList.size(); i++){
 
-                    if (textLength <= recipeList.get(i).getName().length()){
+                    if (textLength <= mRecipeList.get(i).getName().length()){
 
                         if (editText.getText().toString().equalsIgnoreCase(
-                                (String)recipeList.get(i).getName().subSequence(0,textLength))){
-                            newList.add(recipeList.get(i));
+                                (String) mRecipeList.get(i).getName().subSequence(0,textLength))){
+                            newList.add(mRecipeList.get(i));
                         }
                     }
                 }
-                listView.setAdapter(new RecipeAdapter(MyRecipesActivity.this,R.layout.main_list_row_recipe,newList));
+                mListView.setAdapter(new RecipeAdapter(MyRecipesActivity.this, R.layout.main_list_row_recipe, newList));
             }
 
             @Override
@@ -98,5 +108,19 @@ public class MyRecipesActivity extends Activity{
 
             }
         });
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        mKeyboardHider.hideKeyobard(view);
+        return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(this,RecipeDetailsActivity.class);
+        intent.putExtra("Recipe", this.mRecipeList.get(i));
+
+        startActivity(intent);
     }
 }

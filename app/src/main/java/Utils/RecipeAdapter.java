@@ -15,7 +15,6 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import Models.Recipe;
-import Models.SQLiteRecipeModel;
 
 /**
  * Created by Stefan on 11/29/2014.

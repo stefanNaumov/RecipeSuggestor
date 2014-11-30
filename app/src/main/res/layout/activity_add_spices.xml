@@ -49,5 +49,6 @@
         android:id="@+id/addSpicesListViewId"
         android:layout_below="@+id/addSpicesAddBtnId"
         android:layout_alignEnd="@+id/addSpicesAddBtnId"
-        android:layout_above="@+id/goToRecipePreparingBtnId" />
+        android:layout_above="@+id/goToRecipePreparingBtnId"
+        style="@style/paperBackgroundStyle"/>
 </RelativeLayout>

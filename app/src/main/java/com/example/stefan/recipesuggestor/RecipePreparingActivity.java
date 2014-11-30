@@ -21,11 +21,11 @@ import Tasks.KeyboardHider;
 public class RecipePreparingActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
     private static final String TITLE_MESSAGE = "How to prepare";
-    Recipe recipe;
-    Button createRecipeBtn;
-    SQLiteDBManager dbManager;
-    KeyboardHider keyBrdHider;
-    EditText recipePreparingInput;
+    private Recipe mRecipe;
+    private Button mCreateRecipeBtn;
+    private SQLiteDBManager mDbManager;
+    private KeyboardHider mKeyBrdHider;
+    private EditText mRecipePreparingInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,19 +43,19 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
     }
 
     private void init(){
-        dbManager = new SQLiteDBManager(getApplicationContext());
+        mDbManager = new SQLiteDBManager(getApplicationContext());
 
-        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+        mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
         TextView titleTextView = (TextView)findViewById(R.id.recipePreparingTitleId);
-        titleTextView.setText(TITLE_MESSAGE + " " + recipe.getName() + "?");
-        createRecipeBtn = (Button)findViewById(R.id.createRecipeBtnId);
-        createRecipeBtn.setOnClickListener(this);
+        titleTextView.setText(TITLE_MESSAGE + " " + mRecipe.getName() + "?");
+        mCreateRecipeBtn = (Button)findViewById(R.id.createRecipeBtnId);
+        mCreateRecipeBtn.setOnClickListener(this);
 
         LinearLayout layout = (LinearLayout)findViewById(R.id.recipePreparingLayout);
         layout.setOnTouchListener(this);
 
-        keyBrdHider = new KeyboardHider(this);
-        recipePreparingInput = (EditText)findViewById(R.id.recipePreparingInputId);
+        mKeyBrdHider = new KeyboardHider(this);
+        mRecipePreparingInput = (EditText)findViewById(R.id.recipePreparingInputId);
     }
 
     @Override
@@ -75,18 +75,18 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (this.createRecipeBtn.getId() == view.getId()){
+        if (this.mCreateRecipeBtn.getId() == view.getId()){
 
-            String recipePreparingStr = recipePreparingInput.getText().toString();
+            String recipePreparingStr = mRecipePreparingInput.getText().toString();
             if (recipePreparingStr != null && !recipePreparingStr.isEmpty()){
-                recipe.setPreparing(recipePreparingStr);
+                mRecipe.setPreparing(recipePreparingStr);
 
-                dbManager.addRecord(recipe.getName(),recipe.getIngredients(),
-                        recipe.getSpices(),recipe.getPreparing());
+                mDbManager.addRecord(mRecipe.getName(), mRecipe.getIngredients(),
+                        mRecipe.getSpices(), mRecipe.getPreparing());
                 Toast.makeText(this,"Added to database",Toast.LENGTH_LONG).show();
 
                 //clear input
-                this.recipePreparingInput.setText("");
+                this.mRecipePreparingInput.setText("");
 
                 //navigate to main window
                 Intent intent = new Intent(this,MainActivity.class);
@@ -101,7 +101,7 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        keyBrdHider.hideKeyobard(view);
+        mKeyBrdHider.hideKeyobard(view);
         return false;
     }
 }

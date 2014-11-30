@@ -15,9 +15,9 @@ import Models.Recipe;
 
 public class RecipeDetailsActivity extends Activity implements View.OnClickListener{
 
-    private Recipe recipe;
-    TextView nameTextView, ingredientsTextView, spicesTextView;
-    Button preparingBtn;
+    private Recipe mRecipe;
+    private TextView mNameTextView, mIngredientsTextView, mSpicesTextView;
+    private Button mPreparingBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,33 +51,33 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (preparingBtn.getId() == view.getId()){
+        if (mPreparingBtn.getId() == view.getId()){
             Intent intent = new Intent(this,HowToPrepareActivity.class);
-            intent.putExtra("Recipe",recipe);
+            intent.putExtra("Recipe", mRecipe);
 
             startActivity(intent);
         }
     }
 
     private void init(){
-        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+        mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
 
-        nameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
-        ingredientsTextView = (TextView)findViewById(R.id.recipeDetailsIngredientsId);
-        spicesTextView = (TextView)findViewById(R.id.recipeDetailsSpicesId);
-        preparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
-        preparingBtn.setOnClickListener(this);
+        mNameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
+        mIngredientsTextView = (TextView)findViewById(R.id.recipeDetailsIngredientsId);
+        mSpicesTextView = (TextView)findViewById(R.id.recipeDetailsSpicesId);
+        mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
+        mPreparingBtn.setOnClickListener(this);
 
-        this.setContent(recipe);
+        this.setContent(mRecipe);
 
-        Log.d("TIMES SEEN",String.valueOf(recipe.getTimesUsed()));
+        Log.d("TIMES SEEN", String.valueOf(mRecipe.getTimesUsed()));
     }
 
     private void setContent(Recipe recipe){
         if (recipe != null){
-            nameTextView.setText(recipe.getName());
-            ingredientsTextView.setText(recipe.getIngredients());
-            spicesTextView.setText(recipe.getSpices());
+            mNameTextView.setText(recipe.getName());
+            mIngredientsTextView.setText(recipe.getIngredients());
+            mSpicesTextView.setText(recipe.getSpices());
         }
     }
 

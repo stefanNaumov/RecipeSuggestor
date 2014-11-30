@@ -14,8 +14,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import java.util.List;
-
 import Models.Recipe;
 import Tasks.Converter;
 import Tasks.KeyboardHider;
@@ -24,14 +22,14 @@ import Utils.SpicesContainer;
 
 public class AddSpicesActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
-    Recipe recipe;
-    Button goToRecipePreparingBtn, addSpiceBtn;
-    Converter converter;
-    KeyboardHider keyBrdHider;
-    SpicesContainer spicesContainer;
-    EditText addSpiceInput;
-    ListView spicesListView;
-    ArrayAdapter<String> adapter;
+   private Recipe mRecipe;
+   private Button mGoToRecipePreparingBtn, mAddSpiceBtn;
+   private Converter mConverter;
+   private KeyboardHider mKeyBrdHider;
+   private SpicesContainer mSpicesContainer;
+   private EditText mAddSpiceInput;
+   private ListView mSpicesListView;
+   private ArrayAdapter<String> mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,28 +39,28 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
     }
 
     private void init(){
-        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-        goToRecipePreparingBtn = (Button)findViewById(R.id.goToRecipePreparingBtnId);
-        goToRecipePreparingBtn.setOnClickListener(this);
+        mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+        mGoToRecipePreparingBtn = (Button)findViewById(R.id.goToRecipePreparingBtnId);
+        mGoToRecipePreparingBtn.setOnClickListener(this);
 
-        addSpiceBtn = (Button)findViewById(R.id.addSpicesAddBtnId);
-        addSpiceBtn.setOnClickListener(this);
+        mAddSpiceBtn = (Button)findViewById(R.id.addSpicesAddBtnId);
+        mAddSpiceBtn.setOnClickListener(this);
 
-        converter = new Converter();
+        mConverter = new Converter();
 
-        addSpiceInput = (EditText)findViewById(R.id.spicesInputId);
+        mAddSpiceInput = (EditText)findViewById(R.id.spicesInputId);
 
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.addSpicesLayout);
         layout.setOnTouchListener(this);
 
-        keyBrdHider = new KeyboardHider(this);
+        mKeyBrdHider = new KeyboardHider(this);
 
-        spicesContainer = SpicesContainer.getInstance();
+        mSpicesContainer = SpicesContainer.getInstance();
 
-        spicesListView = (ListView)findViewById(R.id.addSpicesListViewId);
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
-                this.spicesContainer.getSpicesList());
-        spicesListView.setAdapter(adapter);
+        mSpicesListView = (ListView)findViewById(R.id.addSpicesListViewId);
+        mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+                this.mSpicesContainer.getSpicesList());
+        mSpicesListView.setAdapter(mAdapter);
     }
 
     @Override
@@ -89,46 +87,46 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
-        if (this.goToRecipePreparingBtn.getId() == view.getId()){
+        if (this.mGoToRecipePreparingBtn.getId() == view.getId()){
 
-            if (this.spicesContainer.getSpicesList() == null
-                    || this.spicesContainer.getSpicesList().size() < 1){
+            if (this.mSpicesContainer.getSpicesList() == null
+                    || this.mSpicesContainer.getSpicesList().size() < 1){
                 Toast.makeText(this,"You must enter at least one spice",Toast.LENGTH_LONG).show();
             }
             else{
-                //convert spices list to String and set it to the current recipe
-                String spicesAsStr = this.converter.convertListToString(
-                        this.spicesContainer.getSpicesList());
-                this.recipe.setSpices(spicesAsStr);
+                //convert spices list to String and set it to the current mRecipe
+                String spicesAsStr = this.mConverter.convertListToString(
+                        this.mSpicesContainer.getSpicesList());
+                this.mRecipe.setSpices(spicesAsStr);
 
                 Intent intent = new Intent(this,RecipePreparingActivity.class);
-                intent.putExtra("Recipe",recipe);
+                intent.putExtra("Recipe", mRecipe);
 
                 startActivity(intent);
             }
         }
-        else if (this.addSpiceBtn.getId() == view.getId()){
-            String spicesStr = addSpiceInput.getText().toString().trim().toLowerCase();
+        else if (this.mAddSpiceBtn.getId() == view.getId()){
+            String spicesStr = mAddSpiceInput.getText().toString().trim().toLowerCase();
 
             if (spicesStr == null || spicesStr.isEmpty()) {
                 Toast.makeText(this, "Spices input field cannot be empty", Toast.LENGTH_LONG).show();
             }
             else{
-                this.spicesContainer.AddSpice(spicesStr);
+                this.mSpicesContainer.AddSpice(spicesStr);
 
-                this.spicesListView.setAdapter(new ArrayAdapter<String>(this,
+                this.mSpicesListView.setAdapter(new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_1,
-                        this.spicesContainer.getSpicesList()));
+                        this.mSpicesContainer.getSpicesList()));
 
                 //clear spice input
-                this.addSpiceInput.setText("");
+                this.mAddSpiceInput.setText("");
             }
         }
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        keyBrdHider.hideKeyobard(view);
+        mKeyBrdHider.hideKeyobard(view);
         return false;
     }
 }

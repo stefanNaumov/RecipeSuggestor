@@ -1,20 +1,14 @@
 package com.example.stefan.recipesuggestor;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -24,10 +18,10 @@ import Tasks.KeyboardHider;
 
 public class AddRecipeActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
-    Button gotoAddIngredientsBtn;
-    Recipe newRecipe;
-    EditText nameEditText;
-    KeyboardHider keyBrdHider;
+    private Button mGotoAddIngredientsBtn;
+    private Recipe mNewRecipe;
+    private EditText mNameEditText;
+    private KeyboardHider mKeyBrdHider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +31,15 @@ public class AddRecipeActivity extends Activity implements View.OnClickListener,
     }
 
     private void init(){
-        gotoAddIngredientsBtn = (Button)findViewById(R.id.goToAddIngredientsBtnId);
-        gotoAddIngredientsBtn.setOnClickListener(this);
+        mGotoAddIngredientsBtn = (Button)findViewById(R.id.goToAddIngredientsBtnId);
+        mGotoAddIngredientsBtn.setOnClickListener(this);
 
-        nameEditText = (EditText)findViewById(R.id.recipeNameId);
+        mNameEditText = (EditText)findViewById(R.id.recipeNameId);
 
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.addRecipeLayout);
         layout.setOnTouchListener(this);
 
-        keyBrdHider = new KeyboardHider(this);
+        mKeyBrdHider = new KeyboardHider(this);
     }
 
     @Override
@@ -72,16 +66,16 @@ public class AddRecipeActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
-        if (gotoAddIngredientsBtn.getId() == view.getId()){
+        if (mGotoAddIngredientsBtn.getId() == view.getId()){
             //get recipe name on onclick
 
-            String recipeName = nameEditText.getText().toString();
+            String recipeName = mNameEditText.getText().toString();
 
             if (recipeName != null && !recipeName.isEmpty()){
                 //create new Recipe with the entered name and pass it to AddIngredients activity
-                newRecipe = new Recipe(recipeName);
+                mNewRecipe = new Recipe(recipeName);
                 Intent i = new Intent(this, AddIngredientsActivity.class);
-                i.putExtra("Recipe",newRecipe);
+                i.putExtra("Recipe", mNewRecipe);
                 startActivity(i);
             }
             else {
@@ -91,7 +85,7 @@ public class AddRecipeActivity extends Activity implements View.OnClickListener,
     }
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        keyBrdHider.hideKeyobard(view);
+        mKeyBrdHider.hideKeyobard(view);
         return false;
     }
 }

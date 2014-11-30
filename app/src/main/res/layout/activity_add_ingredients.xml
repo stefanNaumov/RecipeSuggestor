@@ -46,6 +46,7 @@
         android:id="@+id/addIngredientslistViewId"
         android:layout_below="@+id/addIngredientsAddBtnId"
         android:layout_alignEnd="@+id/addIngredientsAddBtnId"
-        android:layout_above="@+id/goToAddSpicesBtnId" />
+        android:layout_above="@+id/goToAddSpicesBtnId"
+        style="@style/paperBackgroundStyle"/>
 
 </RelativeLayout>

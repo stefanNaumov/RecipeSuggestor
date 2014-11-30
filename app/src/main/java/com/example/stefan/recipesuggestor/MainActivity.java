@@ -1,25 +1,18 @@
 package com.example.stefan.recipesuggestor;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import Models.Recipe;
-import Models.SQLiteRecipeModel;
-import Persistors.SQLiteDBHelper;
 import Persistors.SQLiteDBManager;
 import Utils.IngredientsContainer;
 import Utils.RecipeAdapter;
@@ -28,10 +21,10 @@ import Utils.SpicesContainer;
 
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private Button addRecipeBtn, myRecipesBtn, suggestRecipeBtn;
-    private SQLiteDBManager dbManager;
-    private List<Recipe> modelsList;
-    private RecipeAdapter adapter;
+    private Button mAddRecipeBtn, mMyRecipesBtn, mSuggestRecipeBtn;
+    private SQLiteDBManager mDbManager;
+    private List<Recipe> mModelsList;
+    private RecipeAdapter mAdapter;
     private static final int MOST_USED_LIST_SIZE = 20;
 
     @Override
@@ -68,11 +61,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     public void onClick(View view) {
 
         Intent i;
-        if (view.getId() == this.addRecipeBtn.getId()){
+        if (view.getId() == this.mAddRecipeBtn.getId()){
             i = new Intent(this, AddRecipeActivity.class);
 
         }
-        else if (view.getId() == this.myRecipesBtn.getId()){
+        else if (view.getId() == this.mMyRecipesBtn.getId()){
             i = new Intent(this, MyRecipesActivity.class);
 
         }
@@ -95,31 +88,31 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
         Intent intent = new Intent(this,RecipeDetailsActivity.class);
-        intent.putExtra("Recipe",modelsList.get(i));
+        intent.putExtra("Recipe", mModelsList.get(i));
 
         startActivity(intent);
     }
 
     private void init(){
-        addRecipeBtn = (Button)findViewById(R.id.addRecipeBtn);
-        myRecipesBtn = (Button)findViewById(R.id.myRecipesBtn);
-        suggestRecipeBtn = (Button)findViewById(R.id.suggestRecipeBtn);
+        mAddRecipeBtn = (Button)findViewById(R.id.addRecipeBtn);
+        mMyRecipesBtn = (Button)findViewById(R.id.myRecipesBtn);
+        mSuggestRecipeBtn = (Button)findViewById(R.id.suggestRecipeBtn);
 
-        addRecipeBtn.setOnClickListener(this);
-        myRecipesBtn.setOnClickListener(this);
-        suggestRecipeBtn.setOnClickListener(this);
+        mAddRecipeBtn.setOnClickListener(this);
+        mMyRecipesBtn.setOnClickListener(this);
+        mSuggestRecipeBtn.setOnClickListener(this);
 
-        dbManager = new SQLiteDBManager(getApplicationContext());
+        mDbManager = new SQLiteDBManager(getApplicationContext());
 
     }
 
     private void fetchRecipes(){
-        modelsList = dbManager.getSortedByTimesUsedWithRange(MOST_USED_LIST_SIZE);
+        mModelsList = mDbManager.getSortedByTimesUsedWithRange(MOST_USED_LIST_SIZE);
         ListView listView = (ListView)findViewById(R.id.list);
 
-        adapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,modelsList);
+        mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mModelsList);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(this);
     }
 

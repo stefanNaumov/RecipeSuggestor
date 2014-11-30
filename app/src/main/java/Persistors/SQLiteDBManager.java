@@ -12,7 +12,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import Models.Recipe;
-import Models.SQLiteRecipeModel;
 
 /**
  * Created by Stefan on 11/28/2014.

@@ -18,11 +18,13 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        style="@style/editTextStyle"
+        style="@style/paperBackgroundStyle"
+        android:gravity="top|left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recipePreparingInputId"
-        android:layout_weight="0.90" />
+        android:layout_weight="0.90"
+        />
 
     <Button
       style="@style/nextButtonStyle"
