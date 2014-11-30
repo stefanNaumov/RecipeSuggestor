@@ -8,10 +8,10 @@
     android:background="@drawable/choppingboard"
     android:weightSum="1">
 
-    <TextView
+    <Tasks.TypeWriterAnimator
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/howToPrepareTextViewId"
+        android:id="@+id/howToPrepareTypeWriterAnimatorId"
 
         style="@style/paperBackgroundStyle"/>
 </LinearLayout>

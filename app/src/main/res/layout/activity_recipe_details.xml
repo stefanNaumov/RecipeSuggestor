@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/recipeDetailsIngredientsId"
-        style="@style/textViewStyle"
+        style="@style/paperBackgroundStyle"
         android:layout_weight="0.48"
-        android:background="@drawable/viewborder"
+        android:background="@drawable/paper"
         android:gravity=""/>
     <TextView
         android:layout_width="fill_parent"
@@ -40,9 +40,9 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/recipeDetailsSpicesId"
-        style="@style/textViewStyle"
+        style="@style/paperBackgroundStyle"
         android:layout_weight="0.48"
-        android:background="@drawable/viewborder"
+        android:background="@drawable/paper"
         android:gravity=""/>
 
     <Button

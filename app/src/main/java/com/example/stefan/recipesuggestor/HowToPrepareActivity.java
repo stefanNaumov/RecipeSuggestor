@@ -4,17 +4,17 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import Models.Recipe;
 import Persistors.SQLiteDBManager;
+import Tasks.TypeWriterAnimator;
 
 
 public class HowToPrepareActivity extends Activity {
 
-    TextView howToPrepare;
-    Recipe recipe;
-    SQLiteDBManager dbManager;
+    private TypeWriterAnimator mHowToPrepare;
+    private Recipe recipe;
+    private SQLiteDBManager mDbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +47,18 @@ public class HowToPrepareActivity extends Activity {
     }
 
     private void init(){
-        howToPrepare = (TextView)findViewById(R.id.howToPrepareTextViewId);
+        mHowToPrepare = (TypeWriterAnimator)findViewById(R.id.howToPrepareTypeWriterAnimatorId);
         recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-        dbManager = new SQLiteDBManager(this);
+        mDbManager = new SQLiteDBManager(this);
 
         if (recipe != null){
-            howToPrepare.setText(recipe.getPreparing());
-            /*If a user  clicks the HowToPrepare button he will use the current recipe
+            /*mHowToPrepare.setText(mRecipe.getPreparing());*/
+            mHowToPrepare.animateText(recipe.getPreparing());
+            /*If a user  clicks the mHowToPrepare button he will use the current mRecipe
             - increment the timesSeen value*/
             int timesSeen = recipe.getTimesUsed();
             timesSeen += 1;
-            dbManager.updateTimesSeen(recipe.getName(),timesSeen);
+            mDbManager.updateTimesSeen(recipe.getName(), timesSeen);
         }
     }
 }
