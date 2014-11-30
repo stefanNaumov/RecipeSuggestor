@@ -62,6 +62,7 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         addIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
 
         listView = (ListView)findViewById(R.id.addIngredientslistViewId);
+        List<String> list = ingredientsContainer.getIngredientsList();
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,ingredientsContainer.getIngredientsList());
         listView.setAdapter(adapter);

@@ -21,7 +21,9 @@ import Models.Recipe;
 import Models.SQLiteRecipeModel;
 import Persistors.SQLiteDBHelper;
 import Persistors.SQLiteDBManager;
+import Utils.IngredientsContainer;
 import Utils.RecipeAdapter;
+import Utils.SpicesContainer;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -81,6 +83,21 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         startActivity(i);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.clearContainers();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        Intent intent = new Intent(this,RecipeDetailsActivity.class);
+        intent.putExtra("Recipe",modelsList.get(i));
+
+        startActivity(intent);
+    }
+
     private void init(){
         addRecipeBtn = (Button)findViewById(R.id.addRecipeBtn);
         myRecipesBtn = (Button)findViewById(R.id.myRecipesBtn);
@@ -101,12 +118,17 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         listView.setOnItemClickListener(this);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+/*method used to clear both containers if the user goes back from adding a new recipe*/
+    private void clearContainers(){
+        IngredientsContainer ingredientsContainer = IngredientsContainer.getInstance();
+        SpicesContainer spicesContainer = SpicesContainer.getInstance();
 
-        Intent intent = new Intent(this,RecipeDetailsActivity.class);
-        intent.putExtra("Recipe",modelsList.get(i));
+        if (ingredientsContainer.getIngredientsList() != null){
+            ingredientsContainer.clearList();
+        }
 
-        startActivity(intent);
+        if (spicesContainer.getSpicesList() != null){
+            spicesContainer.clearList();
+        }
     }
 }

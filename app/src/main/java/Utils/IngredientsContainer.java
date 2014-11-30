@@ -35,4 +35,8 @@ public class IngredientsContainer {
         ingredientsList.add(ingredient);
     }
 
+    public void clearList(){
+        ingredientsList.clear();
+    }
+
 }

@@ -31,4 +31,8 @@ public class SpicesContainer {
 
         spicesList.add(spice);
     }
+
+    public void clearList(){
+        spicesList.clear();
+    }
 }
