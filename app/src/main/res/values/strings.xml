@@ -24,5 +24,7 @@
     <string name="howToPrepare">How To Prepare</string>
     <string name="spices">Spices</string>
     <string name="title_activity_how_to_prepare">HowToPrepareActivity</string>
+    <string name="myFavourites">My favourites</string>
+    <string name="recipeName">Recipe Name</string>
 
 </resources>

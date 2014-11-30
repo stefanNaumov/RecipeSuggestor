@@ -28,6 +28,7 @@
       style="@style/nextButtonStyle"
         android:text="@string/createRecipe"
         android:id="@+id/createRecipeBtnId"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:layout_width="291dp" />
 
 </LinearLayout>

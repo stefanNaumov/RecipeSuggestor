@@ -25,6 +25,8 @@
     <style name="nextButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
         <item name="android:textSize">30sp</item>
         <item name="android:text">@string/next</item>
         <item name="android:background">@drawable/buttonshape</item>
@@ -36,6 +38,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">200dp</item>
         <item name="android:background">@drawable/viewborder</item>
+        <item name="android:gravity">top|left</item>
     </style>
     <style name="transparentBackground">
         <item name="android:background">#878787</item>

@@ -3,6 +3,7 @@ package Persistors;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -121,8 +122,27 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
     public List<Recipe> getSortedByTimesUsed(){
         List<Recipe> collection = this.getAll();
         Collections.sort(collection,new TimesUsedComparator());
-
+        Collections.reverse(collection);
+        Log.d("SIZE",String.valueOf(collection.size()));
         return collection;
+    }
+
+    //get range of elements for "most used" list in mainactivity
+    public List<Recipe> getSortedByTimesUsedWithRange(int range){
+        List<Recipe> collection = this.getSortedByTimesUsed();
+
+        if (range < collection.size()){
+            List<Recipe> rangeCollection = new ArrayList<Recipe>(range);
+            for (int i = 0; i < range - 1; i++){
+                rangeCollection.add(collection.get(i));
+            }
+
+            return rangeCollection;
+        }
+        else{
+            return collection;
+        }
+
     }
 
     public List<Recipe> getSortedByName(){

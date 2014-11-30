@@ -30,6 +30,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private SQLiteDBManager dbManager;
     private List<Recipe> modelsList;
     private RecipeAdapter adapter;
+    private static final int MOST_USED_LIST_SIZE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +92,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         dbManager = new SQLiteDBManager(getApplicationContext());
 
-        modelsList = dbManager.getSortedByTimesUsed();
-
+        modelsList = dbManager.getSortedByTimesUsedWithRange(MOST_USED_LIST_SIZE);
         ListView listView = (ListView)findViewById(R.id.list);
 
         adapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,modelsList);
