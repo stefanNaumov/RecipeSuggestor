@@ -53,8 +53,8 @@ public class HowToPrepareActivity extends Activity {
 
         if (recipe != null){
             howToPrepare.setText(recipe.getPreparing());
-            /*If a user opens clicks the HowToPrepare button he will use the current recipe
-            - incremetn the timesSeen value*/
+            /*If a user  clicks the HowToPrepare button he will use the current recipe
+            - increment the timesSeen value*/
             int timesSeen = recipe.getTimesUsed();
             timesSeen += 1;
             dbManager.updateTimesSeen(recipe.getName(),timesSeen);

@@ -1,6 +1,7 @@
 package com.example.stefan.recipesuggestor;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
     Button createRecipeBtn;
     SQLiteDBManager dbManager;
     KeyboardHider keyBrdHider;
+    EditText recipePreparingInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
         layout.setOnTouchListener(this);
 
         keyBrdHider = new KeyboardHider(this);
+        recipePreparingInput = (EditText)findViewById(R.id.recipePreparingInputId);
     }
 
     @Override
@@ -73,21 +76,26 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (this.createRecipeBtn.getId() == view.getId()){
-            EditText recipePreparing = (EditText)findViewById(R.id.recipePreparingInputId);
-            String recipePreparingStr = recipePreparing.getText().toString();
+
+            String recipePreparingStr = recipePreparingInput.getText().toString();
             if (recipePreparingStr != null && !recipePreparingStr.isEmpty()){
                 recipe.setPreparing(recipePreparingStr);
 
                 dbManager.addRecord(recipe.getName(),recipe.getIngredients(),
                         recipe.getSpices(),recipe.getPreparing());
                 Toast.makeText(this,"Added to database",Toast.LENGTH_LONG).show();
+
+                //clear input
+                this.recipePreparingInput.setText("");
+
+                //navigate to main window
+                Intent intent = new Intent(this,MainActivity.class);
+
             }
             else{
                 Toast.makeText(this,"Recipe preparing input field cannot be empty!"
                         ,Toast.LENGTH_LONG).show();
             }
-
-            /*TODO Create SQLite database and add recipe to it*/
         }
     }
 

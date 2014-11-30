@@ -43,31 +43,6 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         this.init();
     }
 
-    private void init(){
-        goToAddSpicesBtn = (Button)findViewById(R.id.goToAddSpicesBtnId);
-        goToAddSpicesBtn.setOnClickListener(this);
-
-        addIngredientButton = (Button)findViewById(R.id.addIngredientsAddBtnId);
-        addIngredientButton.setOnClickListener(this);
-
-        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-
-        ingredientsContainer = IngredientsContainer.getInstance();
-        converter = new Converter();
-
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
-        layout.setOnTouchListener(this);
-        keyBrdHider = new KeyboardHider(this);
-
-        addIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
-
-        listView = (ListView)findViewById(R.id.addIngredientslistViewId);
-        List<String> list = ingredientsContainer.getIngredientsList();
-
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,ingredientsContainer.getIngredientsList());
-        listView.setAdapter(adapter);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -100,6 +75,11 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
                         Toast.LENGTH_LONG).show();
             }
             else{
+                //convert ingredients list to String and set it to the current recipe
+                String ingredientsAsStr = this.converter.convertListToString(
+                        this.ingredientsContainer.getIngredientsList());
+                this.recipe.setIngredients(ingredientsAsStr);
+
                 Intent intent = new Intent(this,AddSpicesActivity.class);
                 intent.putExtra("Recipe",recipe);
 
@@ -127,5 +107,30 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
     public boolean onTouch(View view, MotionEvent motionEvent) {
         keyBrdHider.hideKeyobard(view);
         return false;
+    }
+
+    private void init(){
+        goToAddSpicesBtn = (Button)findViewById(R.id.goToAddSpicesBtnId);
+        goToAddSpicesBtn.setOnClickListener(this);
+
+        addIngredientButton = (Button)findViewById(R.id.addIngredientsAddBtnId);
+        addIngredientButton.setOnClickListener(this);
+
+        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+
+        ingredientsContainer = IngredientsContainer.getInstance();
+        converter = new Converter();
+
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
+        layout.setOnTouchListener(this);
+        keyBrdHider = new KeyboardHider(this);
+
+        addIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
+
+        listView = (ListView)findViewById(R.id.addIngredientslistViewId);
+        List<String> list = ingredientsContainer.getIngredientsList();
+
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,ingredientsContainer.getIngredientsList());
+        listView.setAdapter(adapter);
     }
 }

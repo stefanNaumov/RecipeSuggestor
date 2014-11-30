@@ -9,7 +9,7 @@
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
-       <item name="android:alpha">0.7</item>
+       <item name="android:alpha">0.8</item>
         <item name="android:textSize">22sp</item>
         <item name="android:background">@drawable/buttonshape</item>
     </style>
@@ -30,7 +30,7 @@
         <item name="android:textSize">30sp</item>
         <item name="android:text">@string/next</item>
         <item name="android:background">@drawable/buttonshape</item>
-        <item name="android:alpha">0.5</item>
+        <item name="android:alpha">0.8</item>
     </style>
     <style name="editTextStyle">
         <item name="android:layout_alignParentLeft">true</item>
@@ -41,8 +41,8 @@
         <item name="android:gravity">top|left</item>
     </style>
     <style name="transparentBackground">
-        <item name="android:background">#878787</item>
-        <item name="android:alpha">0.5</item>
+        <item name="android:background">#F2AE4E</item>
+        <item name="android:alpha">0.8</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">30sp</item>
     </style>

@@ -87,6 +87,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     protected void onResume() {
         super.onResume();
         this.clearContainers();
+
+        this.fetchRecipes();
     }
 
     @Override
@@ -109,6 +111,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         dbManager = new SQLiteDBManager(getApplicationContext());
 
+    }
+
+    private void fetchRecipes(){
         modelsList = dbManager.getSortedByTimesUsedWithRange(MOST_USED_LIST_SIZE);
         ListView listView = (ListView)findViewById(R.id.list);
 

@@ -96,7 +96,12 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
                 Toast.makeText(this,"You must enter at least one spice",Toast.LENGTH_LONG).show();
             }
             else{
-                Intent intent = new Intent(this,HowToPrepareActivity.class);
+                //convert spices list to String and set it to the current recipe
+                String spicesAsStr = this.converter.convertListToString(
+                        this.spicesContainer.getSpicesList());
+                this.recipe.setSpices(spicesAsStr);
+
+                Intent intent = new Intent(this,RecipePreparingActivity.class);
                 intent.putExtra("Recipe",recipe);
 
                 startActivity(intent);
