@@ -7,29 +7,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import Models.Recipe;
 import Tasks.Converter;
 import Tasks.KeyboardHider;
+import Utils.IngredientsContainer;
 
 
 public class AddIngredientsActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 
     Recipe recipe;
-    Button goToAddSpicesBtn;
-    List<String> ingredients;
+    EditText addIngredientInput;
+    Button goToAddSpicesBtn, addIngredientButton;
+    IngredientsContainer ingredientsContainer;
     Converter converter;
     KeyboardHider keyBrdHider;
+    ListView listView;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +47,24 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         goToAddSpicesBtn = (Button)findViewById(R.id.goToAddSpicesBtnId);
         goToAddSpicesBtn.setOnClickListener(this);
 
-        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-        TextView recipeNameTextView = (TextView)findViewById(R.id.recipeTitleNameId);
-        recipeNameTextView.setText(recipe.getName());
+        addIngredientButton = (Button)findViewById(R.id.addIngredientsAddBtnId);
+        addIngredientButton.setOnClickListener(this);
 
-        ingredients = new ArrayList<String>();
+        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+
+        ingredientsContainer = IngredientsContainer.getInstance();
         converter = new Converter();
 
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
         layout.setOnTouchListener(this);
         keyBrdHider = new KeyboardHider(this);
+
+        addIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
+
+        listView = (ListView)findViewById(R.id.addIngredientslistViewId);
+
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,ingredientsContainer.getIngredientsList());
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -81,20 +93,31 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
     public void onClick(View view) {
 
         if (goToAddSpicesBtn.getId() == view.getId()){
-            //get ingredients as string and convert it to List by splitting it
-            EditText ingredientsEditText = (EditText)findViewById(R.id.ingredientsInputId);
-            String ingredientsStr = ingredientsEditText.getText().toString().trim().toLowerCase();
-            if (ingredientsStr != null && !ingredientsStr.isEmpty()){
-
-                recipe.setIngredients(ingredientsStr);
-
-                Intent i = new Intent(this,AddSpicesActivity.class);
-                i.putExtra("Recipe",recipe);
-                startActivity(i);
+            if (this.ingredientsContainer.getIngredientsList() == null
+                    || this.ingredientsContainer.getIngredientsList().size() < 1){
+                Toast.makeText(this,"You must enter at least one ingredient",
+                        Toast.LENGTH_LONG).show();
             }
             else{
-                Toast.makeText(this,"Ingredients input field cannot be empty"
-                        ,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this,AddSpicesActivity.class);
+                intent.putExtra("Recipe",recipe);
+
+                startActivity(intent);
+            }
+        }
+        else if (addIngredientButton.getId() == view.getId()){
+            String ingredient = addIngredientInput.getText().toString().trim().toLowerCase();
+            if (ingredient == null || ingredient.isEmpty()) {
+                Toast.makeText(this, "Ingredients input field cannot be empty"
+                        , Toast.LENGTH_LONG).show();
+            }
+            else{
+                this.ingredientsContainer.AddIngredient(ingredient);
+                listView.setAdapter(new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1,this.ingredientsContainer.getIngredientsList()));
+
+                //clear ingredient input
+                addIngredientInput.setText("");
             }
         }
     }

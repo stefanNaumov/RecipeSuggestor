@@ -10,7 +10,7 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
        <item name="android:alpha">0.7</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:background">@drawable/buttonshape</item>
     </style>
     <style name="addButtonStyle">
@@ -36,7 +36,7 @@
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">200dp</item>
+        <item name="android:textSize">35sp</item>
         <item name="android:background">@drawable/viewborder</item>
         <item name="android:gravity">top|left</item>
     </style>

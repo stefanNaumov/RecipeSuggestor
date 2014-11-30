@@ -74,7 +74,7 @@ public class MyRecipesActivity extends Activity{
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
 
             }
-            //TODO fix search
+
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                 List<Recipe> newList = new ArrayList<Recipe>();

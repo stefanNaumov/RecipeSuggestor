@@ -32,11 +32,13 @@
         </activity>
         <activity
             android:name="com.example.stefan.recipesuggestor.AddIngredientsActivity"
-            android:label="@string/title_activity_add_ingredients" >
+            android:label="@string/title_activity_add_ingredients"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name="com.example.stefan.recipesuggestor.AddSpicesActivity"
-            android:label="@string/title_activity_add_spices" >
+            android:label="@string/title_activity_add_spices"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name="com.example.stefan.recipesuggestor.RecipePreparingActivity"

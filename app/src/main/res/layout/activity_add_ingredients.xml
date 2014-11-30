@@ -8,38 +8,44 @@
     android:background="@drawable/choppingboard"
     android:id="@+id/addIngredientsLayout">
 
-    <TextView
-        style="@style/textViewStyle"
-        android:text=""
-        android:id="@+id/recipeTitleNameId"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/ingredientsViewId"
-        android:layout_alignEnd="@+id/ingredientsViewId"
-        android:layout_alignParentTop="true" />
-
     <TextView android:text="@string/ingredients"
         style="@style/textViewStyle"
+        android:id="@+id/ingredientsViewId"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="67dp"
-        android:id="@+id/ingredientsViewId" />
+        android:layout_alignParentEnd="true" />
 
     <EditText
         style="@style/editTextStyle"
-        android:id="@+id/ingredientsInputId"
+        android:layout_height="wrap_content"
+        android:id="@+id/addIngredientsInputId"
         android:layout_below="@+id/ingredientsViewId"
         android:layout_alignRight="@+id/ingredientsViewId"
         android:layout_alignEnd="@+id/ingredientsViewId" />
 
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/buttonStyle"
+        android:text="@string/add"
+        android:id="@+id/addIngredientsAddBtnId"
+        android:layout_below="@+id/addIngredientsInputId"
+        android:layout_alignParentEnd="true" />
     <Button
         style="@style/nextButtonStyle"
         android:id="@+id/goToAddSpicesBtnId"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/ingredientsInputId"
-        android:layout_alignEnd="@+id/ingredientsInputId"
+        android:layout_alignRight="@+id/addIngredientsInputId"
+        android:layout_alignEnd="@+id/addIngredientsInputId"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addIngredientslistViewId"
+        android:layout_below="@+id/addIngredientsAddBtnId"
+        android:layout_alignEnd="@+id/addIngredientsAddBtnId"
+        android:layout_above="@+id/goToAddSpicesBtnId" />
 
 </RelativeLayout>
