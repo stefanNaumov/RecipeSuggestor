@@ -27,5 +27,6 @@
     <string name="myFavourites">My favourites</string>
     <string name="recipeName">Recipe Name</string>
     <string name="add">Add</string>
+    <string name="enterIngredientHere">Enter your ingredient here</string>
 
 </resources>
