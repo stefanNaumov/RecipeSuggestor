@@ -29,6 +29,7 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
     private RecipeAdapter mAdapter;
     private SQLiteDBManager mDbManager;
     private List<Recipe> mRecipeList;
+    private List<Recipe> mDefaultRecipeList;
     private EditText mSearchText;
     private KeyboardHider mKeyboardHider;
 
@@ -67,7 +68,8 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
         mListView = (ListView)findViewById(R.id.myRecipesListViewId);
         mDbManager = new SQLiteDBManager(this);
         mRecipeList = mDbManager.getSortedByName();
-        mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mRecipeList);
+        mDefaultRecipeList = mRecipeList;
+        mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mDefaultRecipeList);
 
         mSearchText = (EditText)findViewById(R.id.myRecipesSearchViewId);
 
@@ -106,8 +108,9 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
                     }
                 }
                 //set the new recipe list in order to get the correct recipe index in onItemClick
-                mRecipeList = newList;
-                mListView.setAdapter(new RecipeAdapter(MyRecipesActivity.this, R.layout.main_list_row_recipe, newList));
+                mDefaultRecipeList = newList;
+                mListView.setAdapter(new RecipeAdapter(MyRecipesActivity.this,
+                        R.layout.main_list_row_recipe, mDefaultRecipeList));
             }
 
             @Override
@@ -126,7 +129,7 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(this,RecipeDetailsActivity.class);
-        intent.putExtra("Recipe", this.mRecipeList.get(i));
+        intent.putExtra("Recipe", this.mDefaultRecipeList.get(i));
 
         startActivity(intent);
     }

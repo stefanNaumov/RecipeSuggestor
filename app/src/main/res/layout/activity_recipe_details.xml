@@ -18,9 +18,9 @@
         android:background="@drawable/viewborder"/>
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:text="@string/ingredients"
-        style="@style/menuSectionsTextStyle"/>
+        style="@style/menuSectionsTextStyle"
+        android:background="@drawable/paper"/>
     <Tasks.TypeWriterAnimator
         android:layout_width="match_parent"
         android:layout_height="136dp"
@@ -31,12 +31,13 @@
         android:gravity=""/>
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+
         android:text="@string/spices"
-        style="@style/menuSectionsTextStyle"/>
+        style="@style/menuSectionsTextStyle"
+        android:background="@drawable/paper"/>
     <Tasks.TypeWriterAnimator
         android:layout_width="match_parent"
-        android:layout_height="126dp"
+        android:layout_height="93dp"
         android:text=""
         android:id="@+id/recipeDetailsSpicesId"
         style="@style/paperBackgroundStyle"
@@ -45,7 +46,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/howToPrepare"
         android:id="@+id/recipeDetailsPreparingBtnId"
         style="@style/nextButtonStyle"
