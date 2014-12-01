@@ -21,13 +21,12 @@
         android:layout_height="wrap_content"
         android:text="@string/ingredients"
         style="@style/menuSectionsTextStyle"/>
-    <TextView
+    <Tasks.TypeWriterAnimator
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="136dp"
         android:text=""
         android:id="@+id/recipeDetailsIngredientsId"
         style="@style/paperBackgroundStyle"
-        android:layout_weight="0.48"
         android:background="@drawable/paper"
         android:gravity=""/>
     <TextView
@@ -35,21 +34,20 @@
         android:layout_height="wrap_content"
         android:text="@string/spices"
         style="@style/menuSectionsTextStyle"/>
-    <TextView
+    <Tasks.TypeWriterAnimator
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="126dp"
         android:text=""
         android:id="@+id/recipeDetailsSpicesId"
         style="@style/paperBackgroundStyle"
-        android:layout_weight="0.48"
         android:background="@drawable/paper"
         android:gravity=""/>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="@string/howToPrepare"
         android:id="@+id/recipeDetailsPreparingBtnId"
-        style="@style/buttonStyle"
+        style="@style/nextButtonStyle"
         android:background="@drawable/buttonshape"/>
 </LinearLayout>

@@ -14,6 +14,7 @@ import java.util.List;
 
 import Models.Recipe;
 import Persistors.SQLiteDBManager;
+import Tasks.TypeWriterAnimator;
 import Utils.IngredientsContainer;
 import Utils.RecipeAdapter;
 import Utils.SpicesContainer;
@@ -25,6 +26,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private SQLiteDBManager mDbManager;
     private List<Recipe> mModelsList;
     private RecipeAdapter mAdapter;
+    private TypeWriterAnimator mMyFavouritesTypeAnimator;
+
+    //size of my favourite recipes list view
     private static final int MOST_USED_LIST_SIZE = 20;
 
     @Override
@@ -79,6 +83,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     @Override
     protected void onResume() {
         super.onResume();
+
+        /*method used to clear both containers if the user goes back from adding a new recipe*/
         this.clearContainers();
 
         this.fetchRecipes();
@@ -104,6 +110,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         mDbManager = new SQLiteDBManager(getApplicationContext());
 
+        mMyFavouritesTypeAnimator = (TypeWriterAnimator)findViewById(R.id.mainActivityMyFavouritesId);
+        mMyFavouritesTypeAnimator.setDelay(250);
+        mMyFavouritesTypeAnimator.animateText("My Favourites");
     }
 
     private void fetchRecipes(){
@@ -116,7 +125,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         listView.setOnItemClickListener(this);
     }
 
-/*method used to clear both containers if the user goes back from adding a new recipe*/
     private void clearContainers(){
         IngredientsContainer ingredientsContainer = IngredientsContainer.getInstance();
         SpicesContainer spicesContainer = SpicesContainer.getInstance();

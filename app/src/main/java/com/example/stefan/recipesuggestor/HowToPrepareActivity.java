@@ -15,6 +15,7 @@ public class HowToPrepareActivity extends Activity {
     private TypeWriterAnimator mHowToPrepare;
     private Recipe recipe;
     private SQLiteDBManager mDbManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,6 @@ public class HowToPrepareActivity extends Activity {
 
         this.init();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,7 +52,6 @@ public class HowToPrepareActivity extends Activity {
         mDbManager = new SQLiteDBManager(this);
 
         if (recipe != null){
-            /*mHowToPrepare.setText(mRecipe.getPreparing());*/
             mHowToPrepare.animateText(recipe.getPreparing());
             /*If a user  clicks the mHowToPrepare button he will use the current mRecipe
             - increment the timesSeen value*/

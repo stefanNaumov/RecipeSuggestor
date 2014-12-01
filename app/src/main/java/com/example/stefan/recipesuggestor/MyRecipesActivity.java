@@ -31,6 +31,7 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
     private List<Recipe> mRecipeList;
     private EditText mSearchText;
     private KeyboardHider mKeyboardHider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,6 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
 
         this.init();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,7 +68,12 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
         mDbManager = new SQLiteDBManager(this);
         mRecipeList = mDbManager.getSortedByName();
         mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mRecipeList);
+
         mSearchText = (EditText)findViewById(R.id.myRecipesSearchViewId);
+
+        //clear focus in order not to show keyboard when starting the activity
+        mSearchText.setSelected(false);
+
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
 
@@ -100,6 +105,8 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
                         }
                     }
                 }
+                //set the new recipe list in order to get the correct recipe index in onItemClick
+                mRecipeList = newList;
                 mListView.setAdapter(new RecipeAdapter(MyRecipesActivity.this, R.layout.main_list_row_recipe, newList));
             }
 

@@ -3,7 +3,6 @@ package com.example.stefan.recipesuggestor;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import Models.Recipe;
+import Tasks.TypeWriterAnimator;
 
 
 public class RecipeDetailsActivity extends Activity implements View.OnClickListener{
 
     private Recipe mRecipe;
-    private TextView mNameTextView, mIngredientsTextView, mSpicesTextView;
+    private TextView mNameTextView;
+    private TypeWriterAnimator mIngredientsTypeWriterAnimator, mSpicesTypeWriterAnimator;
     private Button mPreparingBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,21 +64,22 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
 
         mNameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
-        mIngredientsTextView = (TextView)findViewById(R.id.recipeDetailsIngredientsId);
-        mSpicesTextView = (TextView)findViewById(R.id.recipeDetailsSpicesId);
+        mIngredientsTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsIngredientsId);
+        mSpicesTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
         mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
         mPreparingBtn.setOnClickListener(this);
 
         this.setContent(mRecipe);
-
-        Log.d("TIMES SEEN", String.valueOf(mRecipe.getTimesUsed()));
     }
 
     private void setContent(Recipe recipe){
         if (recipe != null){
             mNameTextView.setText(recipe.getName());
-            mIngredientsTextView.setText(recipe.getIngredients());
-            mSpicesTextView.setText(recipe.getSpices());
+
+            mIngredientsTypeWriterAnimator.animateText(recipe.getIngredients());
+
+            mSpicesTypeWriterAnimator.animateText(recipe.getSpices());
+
         }
     }
 

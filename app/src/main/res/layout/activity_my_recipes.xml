@@ -7,7 +7,8 @@
     tools:context="com.example.stefan.recipesuggestor.MyRecipesActivity"
     android:background="@drawable/choppingboard"
     android:orientation="vertical"
-    android:id="@+id/myRecipesLayoutId">
+    android:id="@+id/myRecipesLayoutId"
+    android:focusableInTouchMode="true">
 
      <EditText
         android:layout_width="match_parent"

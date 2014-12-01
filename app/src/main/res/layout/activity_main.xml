@@ -7,14 +7,13 @@
     android:id="@+id/main"
     android:background="@drawable/choppingboard"
     android:weightSum="1">
-    <TextView
+    <Tasks.TypeWriterAnimator
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:alpha="0.8"
-        android:text="@string/myFavourites"
         android:gravity="center"
         style="@style/menuSectionsTextStyle"
-        android:id="@+id/textView3"
+        android:id="@+id/mainActivityMyFavouritesId"
         android:layout_below="@+id/suggestRecipeBtn"
         android:layout_alignParentEnd="true"
         android:background="@drawable/paper"/>
@@ -23,7 +22,7 @@
     android:layout_height="326dp"
         android:id="@+id/list"
         android:layout_above="@+id/addRecipeBtn"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/mainActivityMyFavouritesId"
         android:background="@drawable/paper"
         android:alpha="0.8"></ListView>
 
@@ -34,7 +33,7 @@
         android:text="@string/suggestRecipe"
         android:id="@+id/suggestRecipeBtn"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignEnd="@+id/mainActivityMyFavouritesId"
         android:layout_alignParentStart="true" />
 
     <Button

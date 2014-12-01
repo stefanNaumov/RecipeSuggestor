@@ -30,6 +30,7 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
    private EditText mAddSpiceInput;
    private ListView mSpicesListView;
    private ArrayAdapter<String> mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

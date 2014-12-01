@@ -14,7 +14,7 @@ public class TypeWriterAnimator extends TextView {
 
     private CharSequence mText;
     private int mIndex;
-    private static long sDelay = 120;
+    private long sDelay = 120;
 
     public TypeWriterAnimator(Context context) {
         super(context);
