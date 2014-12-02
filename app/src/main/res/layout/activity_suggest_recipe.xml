@@ -51,7 +51,7 @@
             android:background="@drawable/listviewrightborder"/>
 
         <ListView
-            android:layout_width="173dp"
+            android:layout_width="match_parent"
             android:layout_height="304dp"
             android:id="@+id/suggestRecipeSuggestedRecipesListViewId"
             android:background="@drawable/paper"/>

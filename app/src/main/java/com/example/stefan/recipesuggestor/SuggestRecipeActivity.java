@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,8 @@ import Utils.IngredientsContainer;
 import Utils.RecipeAdapter;
 
 
-public class SuggestRecipeActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
+public class SuggestRecipeActivity extends Activity implements View.OnClickListener, View.OnTouchListener,
+        AdapterView.OnItemLongClickListener{
 
     private TypeWriterAnimator mAvailableIngredientsTypeAnimator;
     private KeyboardHider mKeyBoardHider;
@@ -74,6 +76,8 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
         //classes need for the ingredients list view
         mAvailableIngredientsListView = (ListView)
                 findViewById(R.id.suggestRecipeAvailableIngredientsListViewId);
+        mAvailableIngredientsListView.setLongClickable(true);
+        mAvailableIngredientsListView.setOnItemLongClickListener(this);
 
         mIngredientsContainer = IngredientsContainer.getInstance();
 
@@ -173,10 +177,23 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
             }
         }
 
-        //if suggested recipes are found set them to the suggested recipes list view
-        if (suggestedRecipes.size() > 0){
-           mRecipeAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,suggestedRecipes);
-            mSuggestedRecipesListView.setAdapter(mRecipeAdapter);
-        }
+        //set suggested recipes to the suggested recipes list view
+        mRecipeAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,suggestedRecipes);
+        mSuggestedRecipesListView.setAdapter(mRecipeAdapter);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        this.mIngredientsContainer.getIngredientsList().remove(i);
+        this.mAvailableIngredientsListView.setAdapter(
+                new ArrayAdapter<String>(
+                        this,android.R.layout.simple_list_item_1,
+                        this.mIngredientsContainer.getIngredientsList()));
+
+        //ingredients list has changed - check for suggested recipes
+        this.checkForSuggestedRecipes();
+
+        return false;
     }
 }
