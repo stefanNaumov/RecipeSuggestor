@@ -28,7 +28,8 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
     private ListView mListView;
     private RecipeAdapter mAdapter;
     private SQLiteDBManager mDbManager;
-    private List<Recipe> mRecipeList;
+    private List<Recipe> mAllRecipeList;
+    //default recipe list used as a container in which lists are swapped
     private List<Recipe> mDefaultRecipeList;
     private EditText mSearchText;
     private KeyboardHider mKeyboardHider;
@@ -67,8 +68,11 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
         mKeyboardHider = new KeyboardHider(this);
         mListView = (ListView)findViewById(R.id.myRecipesListViewId);
         mDbManager = new SQLiteDBManager(this);
-        mRecipeList = mDbManager.getSortedByName();
-        mDefaultRecipeList = mRecipeList;
+
+        mAllRecipeList = mDbManager.getSortedByName();
+        //set all recipes in the container
+        mDefaultRecipeList = mAllRecipeList;
+
         mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mDefaultRecipeList);
 
         mSearchText = (EditText)findViewById(R.id.myRecipesSearchViewId);
@@ -97,17 +101,18 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
                 List<Recipe> newList = new ArrayList<Recipe>();
                 newList.clear();
                 int textLength = editText.getText().length();
-                for (int i = 0; i < mRecipeList.size(); i++){
+                for (int i = 0; i < mAllRecipeList.size(); i++){
 
-                    if (textLength <= mRecipeList.get(i).getName().length()){
+                    if (textLength <= mAllRecipeList.get(i).getName().length()){
 
                         if (editText.getText().toString().equalsIgnoreCase(
-                                (String) mRecipeList.get(i).getName().subSequence(0,textLength))){
-                            newList.add(mRecipeList.get(i));
+                                (String) mAllRecipeList.get(i).getName().subSequence(0,textLength))){
+                            newList.add(mAllRecipeList.get(i));
                         }
                     }
                 }
-                //set the new recipe list in order to get the correct recipe index in onItemClick
+                /*set the new recipe list in the container
+                 in order to get the correct recipe index in onItemClick*/
                 mDefaultRecipeList = newList;
                 mListView.setAdapter(new RecipeAdapter(MyRecipesActivity.this,
                         R.layout.main_list_row_recipe, mDefaultRecipeList));

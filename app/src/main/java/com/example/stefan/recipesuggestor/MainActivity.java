@@ -84,7 +84,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     protected void onResume() {
         super.onResume();
 
-        /*method used to clear both containers if the user goes back from adding a new recipe*/
+        /*method used to clear both containers if the user goes back from adding a new recipe.
+        * This allows these containers to be used in the SuggestRecipeActivity too
+        * because the user will always navigate through the MainActivity
+        * and the containers will be cleared*/
         this.clearContainers();
 
         this.fetchRecipes();
@@ -113,16 +116,20 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         mMyFavouritesTypeAnimator = (TypeWriterAnimator)findViewById(R.id.mainActivityMyFavouritesId);
         mMyFavouritesTypeAnimator.setDelay(250);
         mMyFavouritesTypeAnimator.animateText("My Favourites");
+
+        //mDbManager.deleteAll();
     }
 
     private void fetchRecipes(){
         mModelsList = mDbManager.getSortedByTimesUsedWithRange(MOST_USED_LIST_SIZE);
-        ListView listView = (ListView)findViewById(R.id.list);
+        if (mModelsList != null) {
+            ListView listView = (ListView) findViewById(R.id.list);
 
-        mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mModelsList);
+            mAdapter = new RecipeAdapter(this, R.layout.main_list_row_recipe, mModelsList);
 
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(this);
+            listView.setAdapter(mAdapter);
+            listView.setOnItemClickListener(this);
+        }
     }
 
     private void clearContainers(){

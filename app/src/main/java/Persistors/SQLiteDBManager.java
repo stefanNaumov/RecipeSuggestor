@@ -3,6 +3,7 @@ package Persistors;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import java.sql.SQLException;
@@ -52,6 +53,20 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         values.put(SQLiteDBHelper.COLUMN_TIMES_USED,timesUsed);
 
         this.updateRecord(name, values);
+    }
+
+    public void deleteAll(){
+        try {
+            open();
+            String selectQuery = "DELETE FROM recipes";
+            db.execSQL(selectQuery);
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        close();
     }
 
     public Recipe getByName(String name){
@@ -120,28 +135,34 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
 
     public List<Recipe> getSortedByTimesUsed(){
         List<Recipe> collection = this.getAll();
-        Collections.sort(collection,new TimesUsedComparator());
-        Collections.reverse(collection);
-        Log.d("SIZE",String.valueOf(collection.size()));
-        return collection;
+        if (collection != null) {
+            Collections.sort(collection, new TimesUsedComparator());
+            Collections.reverse(collection);
+            Log.d("SIZE", String.valueOf(collection.size()));
+            return collection;
+        }
+
+        return null;
     }
 
     //get range of elements for "most used" list in mainactivity
     public List<Recipe> getSortedByTimesUsedWithRange(int range){
         List<Recipe> collection = this.getSortedByTimesUsed();
+        if (collection != null) {
 
-        if (range < collection.size()){
-            List<Recipe> rangeCollection = new ArrayList<Recipe>(range);
-            for (int i = 0; i < range - 1; i++){
-                rangeCollection.add(collection.get(i));
+            if (range < collection.size()) {
+                List<Recipe> rangeCollection = new ArrayList<Recipe>(range);
+                for (int i = 0; i < range - 1; i++) {
+                    rangeCollection.add(collection.get(i));
+                }
+
+                return rangeCollection;
+            } else {
+                return collection;
             }
-
-            return rangeCollection;
-        }
-        else{
-            return collection;
         }
 
+        return null;
     }
 
     public List<Recipe> getSortedByName(){

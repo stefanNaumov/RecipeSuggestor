@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         style="@style/nextButtonStyle"
         android:text="Add"
-        android:id="@+id/button"
+        android:id="@+id/suggestRecipeAddAvailableIngredientBtnId"
         android:layout_gravity="right"
         android:layout_weight="0.04" />
 
@@ -51,7 +51,7 @@
             android:background="@drawable/listviewrightborder"/>
 
         <ListView
-            android:layout_width="wrap_content"
+            android:layout_width="173dp"
             android:layout_height="304dp"
             android:id="@+id/suggestRecipeSuggestedRecipesListViewId"
             android:background="@drawable/paper"/>

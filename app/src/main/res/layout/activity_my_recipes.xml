@@ -13,6 +13,7 @@
      <EditText
         android:layout_width="match_parent"
         android:layout_height="39dp"
+         android:hint="@string/searchForRecipe"
         android:background="@drawable/viewborder"
         android:id="@+id/myRecipesSearchViewId"/>
         <ListView
