@@ -2,6 +2,7 @@ package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -43,6 +44,9 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
     private ArrayAdapter<String> mAvailableIngredientsAdapter;
     private List<Recipe> mAllRecipeList;
     private RecipeAdapter mRecipeAdapter;
+    private Vibrator mVibrator;
+    private LinearLayout mLayout;
+    private LinearLayout mSubLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +65,12 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
 
         mConverter = new Converter();
 
-        LinearLayout layout = (LinearLayout)findViewById(R.id.suggestRecipeLayoutId);
-       /* the two list views for available ingredients and suggested recipes are in a sub-layout -
+        mLayout = (LinearLayout)findViewById(R.id.suggestRecipeLayoutId);
+       /* the two list views for available ingredients and suggested recipes are in a sub-mLayout -
         hide keyboard when user touches it too*/
-        LinearLayout subLayout = (LinearLayout)findViewById(R.id.suggestRecipeSubLayoutId);
-        layout.setOnTouchListener(this);
-        subLayout.setOnTouchListener(this);
+        mSubLayout = (LinearLayout)findViewById(R.id.suggestRecipeSubLayoutId);
+        mLayout.setOnTouchListener(this);
+        mSubLayout.setOnTouchListener(this);
 
         mAddAvailableIngredientBtn = (Button)
                 findViewById(R.id.suggestRecipeAddAvailableIngredientBtnId);
@@ -93,6 +97,8 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
 
         mDbManager = new SQLiteDBManager(this);
         mAllRecipeList = mDbManager.getSortedByName();
+
+        mVibrator = (Vibrator)this.getSystemService(VIBRATOR_SERVICE);
     }
 
     @Override
@@ -189,6 +195,8 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
                 new ArrayAdapter<String>(
                         this,android.R.layout.simple_list_item_1,
                         this.mIngredientsContainer.getIngredientsList()));
+        //notify user
+        mVibrator.vibrate(300);
 
         //ingredients list has changed - check for suggested recipes
         this.checkForSuggestedRecipes();

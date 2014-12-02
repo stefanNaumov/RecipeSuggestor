@@ -3,6 +3,7 @@
     package="com.example.stefan.recipesuggestor" >
 
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"

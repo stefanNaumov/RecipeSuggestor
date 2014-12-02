@@ -3,6 +3,7 @@ package com.example.stefan.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -35,6 +36,7 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
     private ListView mListView;
     private ArrayAdapter<String> mAdapter;
     private RelativeLayout mLayout;
+    private Vibrator mVibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
                 mIngredientsContainer.getIngredientsList());
         mListView.setAdapter(mAdapter);
+
+        mVibrator = (Vibrator)this.getSystemService(VIBRATOR_SERVICE);
     }
 
     @Override
@@ -142,6 +146,7 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         this.mListView.setAdapter(new ArrayAdapter<String>(
                 this,android.R.layout.simple_list_item_1,
                 this.mIngredientsContainer.getIngredientsList()));
+        mVibrator.vibrate(300);
         return false;
     }
 }
