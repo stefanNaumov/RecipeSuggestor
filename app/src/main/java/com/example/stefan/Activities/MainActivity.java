@@ -41,6 +41,22 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         this.init();
     }
 
+    private void init(){
+        mAddRecipeBtn = (Button)findViewById(R.id.addRecipeBtn);
+        mMyRecipesBtn = (Button)findViewById(R.id.myRecipesBtn);
+        mSuggestRecipeBtn = (Button)findViewById(R.id.suggestRecipeBtn);
+
+        mAddRecipeBtn.setOnClickListener(this);
+        mMyRecipesBtn.setOnClickListener(this);
+        mSuggestRecipeBtn.setOnClickListener(this);
+
+        mDbManager = new SQLiteDBManager(getApplicationContext());
+
+        mMyFavouritesTypeAnimator = (TypeWriterAnimator)findViewById(R.id.mainActivityMyFavouritesId);
+        mMyFavouritesTypeAnimator.setDelay(250);
+        mMyFavouritesTypeAnimator.animateText("My Favourites");
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -102,24 +118,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         intent.putExtra("Recipe", mModelsList.get(i));
 
         startActivity(intent);
-    }
-
-    private void init(){
-        mAddRecipeBtn = (Button)findViewById(R.id.addRecipeBtn);
-        mMyRecipesBtn = (Button)findViewById(R.id.myRecipesBtn);
-        mSuggestRecipeBtn = (Button)findViewById(R.id.suggestRecipeBtn);
-
-        mAddRecipeBtn.setOnClickListener(this);
-        mMyRecipesBtn.setOnClickListener(this);
-        mSuggestRecipeBtn.setOnClickListener(this);
-
-        mDbManager = new SQLiteDBManager(getApplicationContext());
-
-        mMyFavouritesTypeAnimator = (TypeWriterAnimator)findViewById(R.id.mainActivityMyFavouritesId);
-        mMyFavouritesTypeAnimator.setDelay(250);
-        mMyFavouritesTypeAnimator.animateText("My Favourites");
-
-        //mDbManager.deleteAll();
     }
 
     private void fetchRecipes(){

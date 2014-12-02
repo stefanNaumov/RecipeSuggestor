@@ -29,6 +29,17 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         this.init();
     }
 
+    private void init(){
+        mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+
+        mNameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
+        mIngredientsTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsIngredientsId);
+        mSpicesTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
+        mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
+        mPreparingBtn.setOnClickListener(this);
+
+        this.setContent(mRecipe);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,18 +71,6 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
 
             startActivity(intent);
         }
-    }
-
-    private void init(){
-        mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-
-        mNameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
-        mIngredientsTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsIngredientsId);
-        mSpicesTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
-        mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
-        mPreparingBtn.setOnClickListener(this);
-
-        this.setContent(mRecipe);
     }
 
     private void setContent(Recipe recipe){

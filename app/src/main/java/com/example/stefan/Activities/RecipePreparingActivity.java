@@ -36,14 +36,6 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
         this.init();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recipe_preparing, menu);
-        return true;
-    }
-
     private void init(){
         mDbManager = new SQLiteDBManager(getApplicationContext());
 
@@ -58,6 +50,13 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
 
         mKeyBrdHider = new KeyboardHider(this);
         mRecipePreparingInput = (EditText)findViewById(R.id.recipePreparingInputId);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_recipe_preparing, menu);
+        return true;
     }
 
     @Override

@@ -44,6 +44,32 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         this.init();
     }
 
+    private void init(){
+        mGoToAddSpicesBtn = (Button)findViewById(R.id.goToAddSpicesBtnId);
+        mGoToAddSpicesBtn.setOnClickListener(this);
+
+        mAddIngredientButton = (Button)findViewById(R.id.addIngredientsAddBtnId);
+        mAddIngredientButton.setOnClickListener(this);
+
+        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+
+        mIngredientsContainer = IngredientsContainer.getInstance();
+        mConverter = new Converter();
+
+        mLayout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
+        mLayout.setOnTouchListener(this);
+        mKeyBrdHider = new KeyboardHider(this);
+
+        mAddIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
+
+        mListView = (ListView)findViewById(R.id.addIngredientslistViewId);
+        mListView.setOnItemLongClickListener(this);
+
+        mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+                mIngredientsContainer.getIngredientsList());
+        mListView.setAdapter(mAdapter);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -108,32 +134,6 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
     public boolean onTouch(View view, MotionEvent motionEvent) {
         mKeyBrdHider.hideKeyobard(view);
         return false;
-    }
-
-    private void init(){
-        mGoToAddSpicesBtn = (Button)findViewById(R.id.goToAddSpicesBtnId);
-        mGoToAddSpicesBtn.setOnClickListener(this);
-
-        mAddIngredientButton = (Button)findViewById(R.id.addIngredientsAddBtnId);
-        mAddIngredientButton.setOnClickListener(this);
-
-        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-
-        mIngredientsContainer = IngredientsContainer.getInstance();
-        mConverter = new Converter();
-
-        mLayout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
-        mLayout.setOnTouchListener(this);
-        mKeyBrdHider = new KeyboardHider(this);
-
-        mAddIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
-
-        mListView = (ListView)findViewById(R.id.addIngredientslistViewId);
-        mListView.setOnItemLongClickListener(this);
-
-        mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
-                mIngredientsContainer.getIngredientsList());
-        mListView.setAdapter(mAdapter);
     }
 
     @Override

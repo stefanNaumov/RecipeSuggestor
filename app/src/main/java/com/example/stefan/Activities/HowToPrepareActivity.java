@@ -26,6 +26,21 @@ public class HowToPrepareActivity extends Activity {
         this.init();
     }
 
+    private void init(){
+        mHowToPrepare = (TypeWriterAnimator)findViewById(R.id.howToPrepareTypeWriterAnimatorId);
+        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+        mDbManager = new SQLiteDBManager(this);
+
+        if (recipe != null){
+            mHowToPrepare.animateText(recipe.getPreparing());
+            /*If a user  clicks the mHowToPrepare button he will use the current mRecipe
+            - increment the timesSeen value*/
+            int timesSeen = recipe.getTimesUsed();
+            timesSeen += 1;
+            mDbManager.updateTimesSeen(recipe.getName(), timesSeen);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -46,20 +61,5 @@ public class HowToPrepareActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void init(){
-        mHowToPrepare = (TypeWriterAnimator)findViewById(R.id.howToPrepareTypeWriterAnimatorId);
-        recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-        mDbManager = new SQLiteDBManager(this);
-
-        if (recipe != null){
-            mHowToPrepare.animateText(recipe.getPreparing());
-            /*If a user  clicks the mHowToPrepare button he will use the current mRecipe
-            - increment the timesSeen value*/
-            int timesSeen = recipe.getTimesUsed();
-            timesSeen += 1;
-            mDbManager.updateTimesSeen(recipe.getName(), timesSeen);
-        }
     }
 }
