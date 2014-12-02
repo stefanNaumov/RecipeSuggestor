@@ -1,10 +1,14 @@
 package Tasks;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import android.os.Handler;
+
+import com.example.stefan.recipesuggestor.R;
+
 import java.util.logging.LogRecord;
 
 /**
@@ -14,14 +18,17 @@ public class TypeWriterAnimator extends TextView {
 
     private CharSequence mText;
     private int mIndex;
-    private long sDelay = 120;
+    private long sDelay = 110;
+    private MediaPlayer mPlayer;
 
     public TypeWriterAnimator(Context context) {
         super(context);
+
     }
 
     public TypeWriterAnimator(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mPlayer = MediaPlayer.create(context, R.raw.penciltyping);
     }
 
     public void animateText(CharSequence text){
@@ -31,6 +38,7 @@ public class TypeWriterAnimator extends TextView {
         setText("");
         mHandler.removeCallbacks(addCharacter);
         mHandler.postDelayed(addCharacter,sDelay);
+        mPlayer.start();
     }
 
     public void setDelay(long milliseconds){
@@ -45,6 +53,14 @@ public class TypeWriterAnimator extends TextView {
             if (mIndex <= mText.length()){
                 mHandler.postDelayed(addCharacter,sDelay);
             }
+            else {
+                mPlayer.stop();
+            }
         }
     };
+
+    private void playSound(){
+        mPlayer.start();
+
+    }
 }

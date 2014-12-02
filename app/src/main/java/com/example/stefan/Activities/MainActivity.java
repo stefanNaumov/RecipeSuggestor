@@ -53,7 +53,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         mDbManager = new SQLiteDBManager(getApplicationContext());
 
         mMyFavouritesTypeAnimator = (TypeWriterAnimator)findViewById(R.id.mainActivityMyFavouritesId);
-        mMyFavouritesTypeAnimator.setDelay(250);
         mMyFavouritesTypeAnimator.animateText("My Favourites");
     }
 
