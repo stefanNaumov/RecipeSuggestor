@@ -1,4 +1,4 @@
-package com.example.stefan.recipesuggestor;
+package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.example.stefan.recipesuggestor.R;
 
 import Models.Recipe;
 import Tasks.KeyboardHider;

@@ -1,4 +1,4 @@
-package com.example.stefan.recipesuggestor;
+package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import java.util.List;
+import com.example.stefan.recipesuggestor.R;
 
 import Models.Recipe;
 import Tasks.Converter;
@@ -22,7 +23,8 @@ import Tasks.KeyboardHider;
 import Utils.IngredientsContainer;
 
 
-public class AddIngredientsActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
+public class AddIngredientsActivity extends Activity implements View.OnClickListener, View.OnTouchListener,
+        AdapterView.OnItemLongClickListener{
 
     private Recipe recipe;
     private EditText mAddIngredientInput;
@@ -32,6 +34,7 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
     private KeyboardHider mKeyBrdHider;
     private ListView mListView;
     private ArrayAdapter<String> mAdapter;
+    private RelativeLayout mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,16 +122,26 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         mIngredientsContainer = IngredientsContainer.getInstance();
         mConverter = new Converter();
 
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
-        layout.setOnTouchListener(this);
+        mLayout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
+        mLayout.setOnTouchListener(this);
         mKeyBrdHider = new KeyboardHider(this);
 
         mAddIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
 
         mListView = (ListView)findViewById(R.id.addIngredientslistViewId);
-        List<String> list = mIngredientsContainer.getIngredientsList();
+        mListView.setOnItemLongClickListener(this);
 
-        mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, mIngredientsContainer.getIngredientsList());
+        mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+                mIngredientsContainer.getIngredientsList());
         mListView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        this.mIngredientsContainer.getIngredientsList().remove(i);
+        this.mListView.setAdapter(new ArrayAdapter<String>(
+                this,android.R.layout.simple_list_item_1,
+                this.mIngredientsContainer.getIngredientsList()));
+        return false;
     }
 }

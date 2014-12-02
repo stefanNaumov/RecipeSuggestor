@@ -1,4 +1,4 @@
-package com.example.stefan.recipesuggestor;
+package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.stefan.recipesuggestor.R;
 
 import java.util.List;
 

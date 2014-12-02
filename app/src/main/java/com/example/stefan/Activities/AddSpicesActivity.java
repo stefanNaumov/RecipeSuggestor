@@ -1,4 +1,4 @@
-package com.example.stefan.recipesuggestor;
+package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,13 +15,16 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.stefan.recipesuggestor.R;
+
 import Models.Recipe;
 import Tasks.Converter;
 import Tasks.KeyboardHider;
 import Utils.SpicesContainer;
 
 
-public class AddSpicesActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
+public class AddSpicesActivity extends Activity implements View.OnClickListener, View.OnTouchListener,
+        AdapterView.OnItemLongClickListener{
 
    private Recipe mRecipe;
    private Button mGoToRecipePreparingBtn, mAddSpiceBtn;
@@ -30,6 +34,7 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
    private EditText mAddSpiceInput;
    private ListView mSpicesListView;
    private ArrayAdapter<String> mAdapter;
+   private RelativeLayout mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +56,16 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
 
         mAddSpiceInput = (EditText)findViewById(R.id.spicesInputId);
 
-        RelativeLayout layout = (RelativeLayout)findViewById(R.id.addSpicesLayout);
-        layout.setOnTouchListener(this);
+        mLayout = (RelativeLayout)findViewById(R.id.addSpicesLayout);
+        mLayout.setOnTouchListener(this);
 
         mKeyBrdHider = new KeyboardHider(this);
 
         mSpicesContainer = SpicesContainer.getInstance();
 
         mSpicesListView = (ListView)findViewById(R.id.addSpicesListViewId);
+        mSpicesListView.setOnItemLongClickListener(this);
+
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
                 this.mSpicesContainer.getSpicesList());
         mSpicesListView.setAdapter(mAdapter);
@@ -128,6 +135,15 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         mKeyBrdHider.hideKeyobard(view);
+        return false;
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        this.mSpicesContainer.getSpicesList().remove(i);
+        this.mSpicesListView.setAdapter(new ArrayAdapter<String>(
+                this,android.R.layout.simple_list_item_1,
+                this.mSpicesContainer.getSpicesList()));
         return false;
     }
 }

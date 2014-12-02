@@ -1,4 +1,4 @@
-package com.example.stefan.recipesuggestor;
+package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.stefan.recipesuggestor.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +78,6 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
         //classes need for the ingredients list view
         mAvailableIngredientsListView = (ListView)
                 findViewById(R.id.suggestRecipeAvailableIngredientsListViewId);
-        mAvailableIngredientsListView.setLongClickable(true);
         mAvailableIngredientsListView.setOnItemLongClickListener(this);
 
         mIngredientsContainer = IngredientsContainer.getInstance();
@@ -92,9 +93,7 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
 
         mDbManager = new SQLiteDBManager(this);
         mAllRecipeList = mDbManager.getSortedByName();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

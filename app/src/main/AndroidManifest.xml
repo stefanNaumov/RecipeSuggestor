@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.stefan.recipesuggestor.MainActivity"
+            android:name="com.example.stefan.Activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,38 +19,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.AddRecipeActivity"
+            android:name="com.example.stefan.Activities.AddRecipeActivity"
             android:label="@string/title_activity_add_recipe" >
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.MyRecipesActivity"
+            android:name="com.example.stefan.Activities.MyRecipesActivity"
             android:label="@string/title_activity_my_recipes" >
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.SuggestRecipeActivity"
+            android:name="com.example.stefan.Activities.SuggestRecipeActivity"
             android:label="@string/title_activity_suggest_recipe"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.AddIngredientsActivity"
+            android:name="com.example.stefan.Activities.AddIngredientsActivity"
             android:label="@string/title_activity_add_ingredients"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.AddSpicesActivity"
+            android:name="com.example.stefan.Activities.AddSpicesActivity"
             android:label="@string/title_activity_add_spices"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.RecipePreparingActivity"
+            android:name="com.example.stefan.Activities.RecipePreparingActivity"
             android:label="@string/title_activity_recipe_preparing" >
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.RecipeDetailsActivity"
+            android:name="com.example.stefan.Activities.RecipeDetailsActivity"
             android:label="@string/title_activity_recipe_details" >
         </activity>
         <activity
-            android:name="com.example.stefan.recipesuggestor.HowToPrepareActivity"
+            android:name="com.example.stefan.Activities.HowToPrepareActivity"
             android:label="@string/title_activity_how_to_prepare" >
         </activity>
     </application>

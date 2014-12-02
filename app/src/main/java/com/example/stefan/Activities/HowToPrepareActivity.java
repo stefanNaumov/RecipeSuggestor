@@ -1,9 +1,11 @@
-package com.example.stefan.recipesuggestor;
+package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.stefan.recipesuggestor.R;
 
 import Models.Recipe;
 import Persistors.SQLiteDBManager;
