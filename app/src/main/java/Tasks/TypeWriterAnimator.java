@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import android.os.Handler;
 
+import com.example.stefan.Activities.ApplicationBase;
 import com.example.stefan.recipesuggestor.R;
 
 import java.util.logging.LogRecord;
@@ -18,7 +19,7 @@ public class TypeWriterAnimator extends TextView {
 
     private CharSequence mText;
     private int mIndex;
-    private long sDelay = 110;
+    private long sDelay;
     private MediaPlayer mPlayer;
 
     public TypeWriterAnimator(Context context) {
@@ -29,6 +30,10 @@ public class TypeWriterAnimator extends TextView {
     public TypeWriterAnimator(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPlayer = MediaPlayer.create(context, R.raw.penciltyping);
+
+        ApplicationBase appBase = new ApplicationBase();
+
+        sDelay = appBase.getAnimatorDelay();
     }
 
     public void animateText(CharSequence text){
@@ -55,6 +60,7 @@ public class TypeWriterAnimator extends TextView {
             }
             else {
                 mPlayer.stop();
+                mPlayer.release();
             }
         }
     };

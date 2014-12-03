@@ -2,7 +2,9 @@ package com.example.stefan.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.stefan.recipesuggestor.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import Models.Recipe;
 import Tasks.TypeWriterAnimator;
@@ -21,6 +26,9 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
     private TextView mNameTextView;
     private TypeWriterAnimator mIngredientsTypeWriterAnimator, mSpicesTypeWriterAnimator;
     private Button mPreparingBtn;
+    private ApplicationBase mAppBase;
+    //list of animators used in the extended async task
+    private List<TypeWriterAnimator> animatorsList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +45,13 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         mSpicesTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
         mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
         mPreparingBtn.setOnClickListener(this);
+        animatorsList = new ArrayList<TypeWriterAnimator>();
+        animatorsList.add(mIngredientsTypeWriterAnimator);
+        animatorsList.add(mSpicesTypeWriterAnimator);
 
-        this.setContent(mRecipe);
+        mAppBase = new ApplicationBase();
+
+        new SetTextAnimationTask().execute();
     }
 
     @Override
@@ -73,15 +86,37 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         }
     }
 
-    private void setContent(Recipe recipe){
+    private void setContent(final Recipe recipe){
         if (recipe != null){
             mNameTextView.setText(recipe.getName());
-
             mIngredientsTypeWriterAnimator.animateText(recipe.getIngredients());
-
             mSpicesTypeWriterAnimator.animateText(recipe.getSpices());
 
         }
     }
 
+    private class SetTextAnimationTask extends AsyncTask<Void,TypeWriterAnimator,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            //animate spices after the ingredients are already set
+            for(TypeWriterAnimator animator : animatorsList ){
+                publishProgress(animator);
+                //add a little delay before animating each textView
+                SystemClock.sleep(mRecipe.getIngredients().length() * (mAppBase.getAnimatorDelay() + 10));
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(TypeWriterAnimator... values) {
+            if (values[0].getId() == mIngredientsTypeWriterAnimator.getId()){
+                mIngredientsTypeWriterAnimator.animateText(mRecipe.getIngredients());
+            }
+            else if(values[0].getId() == mSpicesTypeWriterAnimator.getId()){
+                mSpicesTypeWriterAnimator.animateText(mRecipe.getSpices());
+            }
+        }
+    }
 }
