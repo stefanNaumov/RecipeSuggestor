@@ -24,9 +24,10 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
 
     private Recipe mRecipe;
     private TextView mNameTextView;
-    private TypeWriterAnimator mIngredientsTypeWriterAnimator, mSpicesTypeWriterAnimator;
+    private TypeWriterAnimator mIngredientsAnimator, mSpicesAnimator;
     private Button mPreparingBtn;
     private ApplicationBase mAppBase;
+    private SetTextAnimationTask task;
     //list of animators used in the extended async task
     private List<TypeWriterAnimator> animatorsList;
     @Override
@@ -41,17 +42,18 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
 
         mNameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
-        mIngredientsTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsIngredientsId);
-        mSpicesTypeWriterAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
+        mIngredientsAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsIngredientsId);
+        mSpicesAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
         mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
         mPreparingBtn.setOnClickListener(this);
         animatorsList = new ArrayList<TypeWriterAnimator>();
-        animatorsList.add(mIngredientsTypeWriterAnimator);
-        animatorsList.add(mSpicesTypeWriterAnimator);
+        animatorsList.add(mIngredientsAnimator);
+        animatorsList.add(mSpicesAnimator);
 
         mAppBase = new ApplicationBase();
 
-        new SetTextAnimationTask().execute();
+        task = new SetTextAnimationTask();
+        task.execute();
     }
 
     @Override
@@ -76,9 +78,23 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    //make sure that if the user goes back the pencil typing sound will be stopped
     @Override
+    protected void onPause() {
+        super.onPause();
+        task.cancel(true);
+
+        mIngredientsAnimator.stop();
+        mSpicesAnimator.stop();
+    }
+
+     @Override
     public void onClick(View view) {
         if (mPreparingBtn.getId() == view.getId()){
+            //stop animating and set text directly
+            mIngredientsAnimator.setText(mRecipe.getIngredients());
+            mSpicesAnimator.setText(mRecipe.getSpices());
+
             Intent intent = new Intent(this,HowToPrepareActivity.class);
             intent.putExtra("Recipe", mRecipe);
 
@@ -89,8 +105,8 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
     private void setContent(final Recipe recipe){
         if (recipe != null){
             mNameTextView.setText(recipe.getName());
-            mIngredientsTypeWriterAnimator.animateText(recipe.getIngredients());
-            mSpicesTypeWriterAnimator.animateText(recipe.getSpices());
+            mIngredientsAnimator.animateText(recipe.getIngredients());
+            mSpicesAnimator.animateText(recipe.getSpices());
 
         }
     }
@@ -103,7 +119,13 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
             for(TypeWriterAnimator animator : animatorsList ){
                 publishProgress(animator);
                 //add a little delay before animating each textView
-                SystemClock.sleep(mRecipe.getIngredients().length() * (mAppBase.getAnimatorDelay() + 10));
+
+                try {
+                    Thread.sleep(mRecipe.getIngredients().length() * (mAppBase.getAnimatorDelay() + 10));
+                }
+                catch (InterruptedException e){
+                    e.printStackTrace();
+                }
             }
 
             return null;
@@ -111,11 +133,11 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
 
         @Override
         protected void onProgressUpdate(TypeWriterAnimator... values) {
-            if (values[0].getId() == mIngredientsTypeWriterAnimator.getId()){
-                mIngredientsTypeWriterAnimator.animateText(mRecipe.getIngredients());
+            if (values[0].getId() == mIngredientsAnimator.getId()){
+                mIngredientsAnimator.animateText(mRecipe.getIngredients());
             }
-            else if(values[0].getId() == mSpicesTypeWriterAnimator.getId()){
-                mSpicesTypeWriterAnimator.animateText(mRecipe.getSpices());
+            else if(values[0].getId() == mSpicesAnimator.getId()){
+                mSpicesAnimator.animateText(mRecipe.getSpices());
             }
         }
     }

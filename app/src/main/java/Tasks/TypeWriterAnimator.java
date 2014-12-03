@@ -46,8 +46,9 @@ public class TypeWriterAnimator extends TextView {
         mPlayer.start();
     }
 
-    public void setDelay(long milliseconds){
-        sDelay = milliseconds;
+    public void stop(){
+        mPlayer.stop();
+        //mHandler.removeCallbacks(addCharacter);
     }
 
     private Handler mHandler = new Handler();
@@ -60,13 +61,7 @@ public class TypeWriterAnimator extends TextView {
             }
             else {
                 mPlayer.stop();
-                mPlayer.release();
             }
         }
     };
-
-    private void playSound(){
-        mPlayer.start();
-
-    }
 }

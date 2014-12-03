@@ -14,7 +14,7 @@ import Tasks.TypeWriterAnimator;
 
 public class HowToPrepareActivity extends Activity {
 
-    private TypeWriterAnimator mHowToPrepare;
+    private TypeWriterAnimator mHowToPrepareAnimator;
     private Recipe recipe;
     private SQLiteDBManager mDbManager;
 
@@ -27,13 +27,13 @@ public class HowToPrepareActivity extends Activity {
     }
 
     private void init(){
-        mHowToPrepare = (TypeWriterAnimator)findViewById(R.id.howToPrepareTypeWriterAnimatorId);
+        mHowToPrepareAnimator = (TypeWriterAnimator)findViewById(R.id.howToPrepareTypeWriterAnimatorId);
         recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
         mDbManager = new SQLiteDBManager(this);
 
         if (recipe != null){
-            mHowToPrepare.animateText(recipe.getPreparing());
-            /*If a user  clicks the mHowToPrepare button he will use the current mRecipe
+            mHowToPrepareAnimator.animateText(recipe.getPreparing());
+            /*If a user  clicks the how to prepare button he will use the current mRecipe
             - increment the timesSeen value*/
             int timesSeen = recipe.getTimesUsed();
             timesSeen += 1;
@@ -61,5 +61,14 @@ public class HowToPrepareActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //make sure that if the user goes back the pencil typing sound will be stopped
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mHowToPrepareAnimator != null) {
+            mHowToPrepareAnimator.stop();
+        }
     }
 }

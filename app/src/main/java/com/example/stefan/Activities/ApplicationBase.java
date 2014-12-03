@@ -7,7 +7,7 @@ import android.app.Application;
  */
 //class used to set globally the text animation delay
 public class ApplicationBase extends Application {
-    private long animatorDelay = 110;
+    private long animatorDelay = 30;
 
     public long getAnimatorDelay(){
         return animatorDelay;

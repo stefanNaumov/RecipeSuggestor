@@ -154,6 +154,15 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
         }
     }
 
+    //make sure that if the user goes back the pencil typing sound will be stopped
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mAvailableIngredientsTypeAnimator != null) {
+            mAvailableIngredientsTypeAnimator.stop();
+        }
+    }
+
     private void checkForSuggestedRecipes(){
         List<Recipe> suggestedRecipes = new ArrayList<Recipe>();
         List<String> currentIngredients = mIngredientsContainer.getIngredientsList();
