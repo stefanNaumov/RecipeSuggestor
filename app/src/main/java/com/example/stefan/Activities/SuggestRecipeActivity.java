@@ -1,6 +1,7 @@
 package com.example.stefan.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.Menu;
@@ -30,7 +31,7 @@ import Utils.RecipeAdapter;
 
 
 public class SuggestRecipeActivity extends Activity implements View.OnClickListener, View.OnTouchListener,
-        AdapterView.OnItemLongClickListener{
+        AdapterView.OnItemLongClickListener, AdapterView.OnItemClickListener{
 
     private TypeWriterAnimator mAvailableIngredientsTypeAnimator;
     private KeyboardHider mKeyBoardHider;
@@ -47,6 +48,7 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
     private Vibrator mVibrator;
     private LinearLayout mLayout;
     private LinearLayout mSubLayout;
+    private List<Recipe> mSuggestedRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
         //classes need for the suggested recipes list view
         mSuggestedRecipesListView = (ListView)
                 findViewById(R.id.suggestRecipeSuggestedRecipesListViewId);
+        mSuggestedRecipesListView.setOnItemClickListener(this);
 
         mDbManager = new SQLiteDBManager(this);
         mAllRecipeList = mDbManager.getSortedByName();
@@ -164,7 +167,7 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
     }
 
     private void checkForSuggestedRecipes(){
-        List<Recipe> suggestedRecipes = new ArrayList<Recipe>();
+        mSuggestedRecipes = new ArrayList<Recipe>();
         List<String> currentIngredients = mIngredientsContainer.getIngredientsList();
 
         for (int i = 0; i < this.mAllRecipeList.size(); i++){
@@ -185,14 +188,14 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
                     }
                 }
                 if (counter > (ingredientsList.size() / 2)){
-                    suggestedRecipes.add(currRecipe);
+                    mSuggestedRecipes.add(currRecipe);
                     break;
                 }
             }
         }
 
         //set suggested recipes to the suggested recipes list view
-        mRecipeAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe,suggestedRecipes);
+        mRecipeAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mSuggestedRecipes);
         mSuggestedRecipesListView.setAdapter(mRecipeAdapter);
     }
 
@@ -211,5 +214,13 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
         this.checkForSuggestedRecipes();
 
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(this,RecipeDetailsActivity.class);
+        intent.putExtra("Recipe",mSuggestedRecipes.get(i));
+
+        startActivity(intent);
     }
 }
