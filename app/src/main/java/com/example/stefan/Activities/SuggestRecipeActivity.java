@@ -55,36 +55,25 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_recipe);
 
+        this.initViews();
         this.init();
     }
 
     private void init(){
-        mAvailableIngredientsTypeAnimator =
-                (TypeWriterAnimator)findViewById(R.id.suggestRecipeTitleTypeWriterAnimatorId);
+
         mAvailableIngredientsTypeAnimator.animateText("What do I have available..");
 
         mKeyBoardHider = new KeyboardHider(this);
 
         mConverter = new Converter();
 
-        mLayout = (LinearLayout)findViewById(R.id.suggestRecipeLayoutId);
-       /* the two list views for available ingredients and suggested recipes are in a sub-mLayout -
-        hide keyboard when user touches it too*/
-        mSubLayout = (LinearLayout)findViewById(R.id.suggestRecipeSubLayoutId);
         mLayout.setOnTouchListener(this);
+         /* the two list views for available ingredients and suggested recipes are in a sub-mLayout -
+        hide keyboard when user touches it too*/
         mSubLayout.setOnTouchListener(this);
-
-        mAddAvailableIngredientBtn = (Button)
-                findViewById(R.id.suggestRecipeAddAvailableIngredientBtnId);
         mAddAvailableIngredientBtn.setOnClickListener(this);
-
-        mAvailableIngredientInput = (EditText)
-                findViewById(R.id.suggestRecipeIngredientAvailableInputId);
-
-        //classes need for the ingredients list view
-        mAvailableIngredientsListView = (ListView)
-                findViewById(R.id.suggestRecipeAvailableIngredientsListViewId);
         mAvailableIngredientsListView.setOnItemLongClickListener(this);
+        mSuggestedRecipesListView.setOnItemClickListener(this);
 
         mIngredientsContainer = IngredientsContainer.getInstance();
 
@@ -93,15 +82,31 @@ public class SuggestRecipeActivity extends Activity implements View.OnClickListe
 
         mAvailableIngredientsListView.setAdapter(mAvailableIngredientsAdapter);
 
-        //classes need for the suggested recipes list view
-        mSuggestedRecipesListView = (ListView)
-                findViewById(R.id.suggestRecipeSuggestedRecipesListViewId);
-        mSuggestedRecipesListView.setOnItemClickListener(this);
-
         mDbManager = new SQLiteDBManager(this);
         mAllRecipeList = mDbManager.getSortedByName();
 
         mVibrator = (Vibrator)this.getSystemService(VIBRATOR_SERVICE);
+    }
+
+    private void initViews(){
+        mAvailableIngredientsTypeAnimator =
+                (TypeWriterAnimator)findViewById(R.id.suggestRecipeTitleTypeWriterAnimatorId);
+
+        mLayout = (LinearLayout)findViewById(R.id.suggestRecipeLayoutId);
+
+        mSubLayout = (LinearLayout)findViewById(R.id.suggestRecipeSubLayoutId);
+
+        mAddAvailableIngredientBtn = (Button)
+                findViewById(R.id.suggestRecipeAddAvailableIngredientBtnId);
+
+        mAvailableIngredientInput = (EditText)
+                findViewById(R.id.suggestRecipeIngredientAvailableInputId);
+
+        mAvailableIngredientsListView = (ListView)
+                findViewById(R.id.suggestRecipeAvailableIngredientsListViewId);
+
+        mSuggestedRecipesListView = (ListView)
+                findViewById(R.id.suggestRecipeSuggestedRecipesListViewId);
     }
 
     @Override

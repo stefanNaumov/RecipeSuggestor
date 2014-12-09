@@ -29,5 +29,7 @@
     <string name="add">Add</string>
     <string name="enterIngredientHere">Enter your ingredient here</string>
     <string name="searchForRecipe">Search for recipe</string>
+    <string name="toGallery">Gallery</string>
+    <string name="preparing">Preparing</string>
 
 </resources>

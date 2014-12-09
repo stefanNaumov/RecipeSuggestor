@@ -25,7 +25,7 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
     private Recipe mRecipe;
     private TextView mNameTextView;
     private TypeWriterAnimator mIngredientsAnimator, mSpicesAnimator;
-    private Button mPreparingBtn;
+    private Button mPreparingBtn, mToGalleryBtn;
     private ApplicationBase mAppBase;
     private SetTextAnimationTask task;
     //list of animators used in the extended async task
@@ -35,17 +35,16 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
+        this.initViews();
         this.init();
     }
 
     private void init(){
         mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
 
-        mNameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
-        mIngredientsAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsIngredientsId);
-        mSpicesAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
-        mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
         mPreparingBtn.setOnClickListener(this);
+        mToGalleryBtn.setOnClickListener(this);
+
         animatorsList = new ArrayList<TypeWriterAnimator>();
         animatorsList.add(mIngredientsAnimator);
         animatorsList.add(mSpicesAnimator);
@@ -54,6 +53,15 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
 
         task = new SetTextAnimationTask();
         task.execute();
+    }
+
+    private void initViews(){
+        mNameTextView = (TextView)findViewById(R.id.recipeDetailsNameId);
+        mIngredientsAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsIngredientsId);
+        mSpicesAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
+
+        mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
+        mToGalleryBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
     }
 
     @Override
@@ -99,6 +107,9 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
             intent.putExtra("Recipe", mRecipe);
 
             startActivity(intent);
+        }
+         else if(mToGalleryBtn.getId() == view.getId()){
+            //TODO add Gallery activity and navigate to it
         }
     }
 

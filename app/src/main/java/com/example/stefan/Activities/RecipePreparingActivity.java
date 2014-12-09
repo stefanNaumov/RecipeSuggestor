@@ -28,11 +28,14 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
     private SQLiteDBManager mDbManager;
     private KeyboardHider mKeyBrdHider;
     private EditText mRecipePreparingInput;
+    private TextView mTitleTextView;
+    private LinearLayout mLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_preparing);
 
+        this.initViews();
         this.init();
     }
 
@@ -40,15 +43,21 @@ public class RecipePreparingActivity extends Activity implements View.OnClickLis
         mDbManager = new SQLiteDBManager(getApplicationContext());
 
         mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-        TextView titleTextView = (TextView)findViewById(R.id.recipePreparingTitleId);
-        titleTextView.setText(TITLE_MESSAGE + " " + mRecipe.getName() + "?");
-        mCreateRecipeBtn = (Button)findViewById(R.id.createRecipeBtnId);
+
+        mTitleTextView.setText(TITLE_MESSAGE + " " + mRecipe.getName() + "?");
+
         mCreateRecipeBtn.setOnClickListener(this);
-
-        LinearLayout layout = (LinearLayout)findViewById(R.id.recipePreparingLayout);
-        layout.setOnTouchListener(this);
-
+        mLayout.setOnTouchListener(this);
         mKeyBrdHider = new KeyboardHider(this);
+    }
+
+    private void initViews(){
+        mTitleTextView = (TextView)findViewById(R.id.recipePreparingTitleId);
+
+        mCreateRecipeBtn = (Button)findViewById(R.id.createRecipeBtnId);
+
+        mLayout = (LinearLayout)findViewById(R.id.recipePreparingLayout);
+
         mRecipePreparingInput = (EditText)findViewById(R.id.recipePreparingInputId);
     }
 

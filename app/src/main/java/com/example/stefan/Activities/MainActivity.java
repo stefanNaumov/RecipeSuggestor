@@ -38,19 +38,22 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.initViews();
         this.init();
     }
 
     private void init(){
-        mAddRecipeBtn = (Button)findViewById(R.id.addRecipeBtn);
-        mMyRecipesBtn = (Button)findViewById(R.id.myRecipesBtn);
-        mSuggestRecipeBtn = (Button)findViewById(R.id.suggestRecipeBtn);
+        mDbManager = new SQLiteDBManager(getApplicationContext());
 
         mAddRecipeBtn.setOnClickListener(this);
         mMyRecipesBtn.setOnClickListener(this);
         mSuggestRecipeBtn.setOnClickListener(this);
+    }
 
-        mDbManager = new SQLiteDBManager(getApplicationContext());
+    private void initViews(){
+        mAddRecipeBtn = (Button)findViewById(R.id.addRecipeBtn);
+        mMyRecipesBtn = (Button)findViewById(R.id.myRecipesBtn);
+        mSuggestRecipeBtn = (Button)findViewById(R.id.suggestRecipeBtn);
 
         mMyFavouritesTypeAnimator = (TypeWriterAnimator)findViewById(R.id.mainActivityMyFavouritesId);
         mMyFavouritesTypeAnimator.animateText("My Favourites");

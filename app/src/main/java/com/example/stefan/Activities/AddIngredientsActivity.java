@@ -43,28 +43,20 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredients);
 
+        this.intViews();
         this.init();
     }
 
     private void init(){
-        mGoToAddSpicesBtn = (Button)findViewById(R.id.goToAddSpicesBtnId);
-        mGoToAddSpicesBtn.setOnClickListener(this);
-
-        mAddIngredientButton = (Button)findViewById(R.id.addIngredientsAddBtnId);
-        mAddIngredientButton.setOnClickListener(this);
-
         recipe = (Recipe)getIntent().getSerializableExtra("Recipe");
 
         mIngredientsContainer = IngredientsContainer.getInstance();
         mConverter = new Converter();
 
-        mLayout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
-        mLayout.setOnTouchListener(this);
         mKeyBrdHider = new KeyboardHider(this);
-
-        mAddIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
-
-        mListView = (ListView)findViewById(R.id.addIngredientslistViewId);
+        mGoToAddSpicesBtn.setOnClickListener(this);
+        mAddIngredientButton.setOnClickListener(this);
+        mLayout.setOnTouchListener(this);
         mListView.setOnItemLongClickListener(this);
 
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
@@ -72,6 +64,18 @@ public class AddIngredientsActivity extends Activity implements View.OnClickList
         mListView.setAdapter(mAdapter);
 
         mVibrator = (Vibrator)this.getSystemService(VIBRATOR_SERVICE);
+    }
+
+    private void intViews(){
+        mGoToAddSpicesBtn = (Button)findViewById(R.id.goToAddSpicesBtnId);
+
+        mAddIngredientButton = (Button)findViewById(R.id.addIngredientsAddBtnId);
+
+        mLayout = (RelativeLayout) findViewById(R.id.addIngredientsLayout);
+
+        mAddIngredientInput = (EditText)findViewById(R.id.addIngredientsInputId);
+
+        mListView = (ListView)findViewById(R.id.addIngredientslistViewId);
     }
 
     @Override

@@ -43,36 +43,41 @@ public class AddSpicesActivity extends Activity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_spices);
 
+        this.initViews();
         this.init();
     }
 
     private void init(){
         mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
-        mGoToRecipePreparingBtn = (Button)findViewById(R.id.goToRecipePreparingBtnId);
-        mGoToRecipePreparingBtn.setOnClickListener(this);
-
-        mAddSpiceBtn = (Button)findViewById(R.id.addSpicesAddBtnId);
-        mAddSpiceBtn.setOnClickListener(this);
 
         mConverter = new Converter();
-
-        mAddSpiceInput = (EditText)findViewById(R.id.spicesInputId);
-
-        mLayout = (RelativeLayout)findViewById(R.id.addSpicesLayout);
-        mLayout.setOnTouchListener(this);
 
         mKeyBrdHider = new KeyboardHider(this);
 
         mSpicesContainer = SpicesContainer.getInstance();
-
-        mSpicesListView = (ListView)findViewById(R.id.addSpicesListViewId);
-        mSpicesListView.setOnItemLongClickListener(this);
 
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
                 this.mSpicesContainer.getSpicesList());
         mSpicesListView.setAdapter(mAdapter);
 
         mVibrator = (Vibrator)this.getSystemService(VIBRATOR_SERVICE);
+
+        mGoToRecipePreparingBtn.setOnClickListener(this);
+        mAddSpiceBtn.setOnClickListener(this);
+        mLayout.setOnTouchListener(this);
+        mSpicesListView.setOnItemLongClickListener(this);
+    }
+
+    private void initViews(){
+        mGoToRecipePreparingBtn = (Button)findViewById(R.id.goToRecipePreparingBtnId);
+
+        mAddSpiceBtn = (Button)findViewById(R.id.addSpicesAddBtnId);
+
+        mAddSpiceInput = (EditText)findViewById(R.id.spicesInputId);
+
+        mLayout = (RelativeLayout)findViewById(R.id.addSpicesLayout);
+
+        mSpicesListView = (ListView)findViewById(R.id.addSpicesListViewId);
     }
 
     @Override

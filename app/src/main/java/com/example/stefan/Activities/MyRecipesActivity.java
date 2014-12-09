@@ -35,18 +35,20 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
     private List<Recipe> mDefaultRecipeList;
     private EditText mSearchText;
     private KeyboardHider mKeyboardHider;
+    private LinearLayout mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_recipes);
 
+        this.initViews();
         this.init();
     }
 
     private void init(){
         mKeyboardHider = new KeyboardHider(this);
-        mListView = (ListView)findViewById(R.id.myRecipesListViewId);
+
         mDbManager = new SQLiteDBManager(this);
 
         mAllRecipeList = mDbManager.getSortedByName();
@@ -54,19 +56,23 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
         mDefaultRecipeList = mAllRecipeList;
 
         mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mDefaultRecipeList);
+        mListView.setAdapter(mAdapter);
 
-        mSearchText = (EditText)findViewById(R.id.myRecipesSearchViewId);
-
+        mListView.setOnItemClickListener(this);
+        mLayout.setOnTouchListener(this);
         //clear focus in order not to show keyboard when starting the activity
         mSearchText.setSelected(false);
 
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(this);
-
-        LinearLayout layout = (LinearLayout)findViewById(R.id.myRecipesLayoutId);
-        layout.setOnTouchListener(this);
-
         this.AddTextChangeListener(mSearchText);
+    }
+
+    private void initViews(){
+        mListView = (ListView)findViewById(R.id.myRecipesListViewId);
+
+        mSearchText = (EditText)findViewById(R.id.myRecipesSearchViewId);
+
+        mLayout = (LinearLayout)findViewById(R.id.myRecipesLayoutId);
+
     }
 
     @Override

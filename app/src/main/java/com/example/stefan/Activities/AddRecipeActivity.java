@@ -24,24 +24,29 @@ public class AddRecipeActivity extends Activity implements View.OnClickListener,
     private Recipe mNewRecipe;
     private EditText mNameEditText;
     private KeyboardHider mKeyBrdHider;
+    private RelativeLayout mLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
+        this.initViews();
         this.init();
     }
 
     private void init(){
-        mGotoAddIngredientsBtn = (Button)findViewById(R.id.goToAddIngredientsBtnId);
+        mKeyBrdHider = new KeyboardHider(this);
+
         mGotoAddIngredientsBtn.setOnClickListener(this);
+        mLayout.setOnTouchListener(this);
+    }
+
+    private void initViews(){
+        mGotoAddIngredientsBtn = (Button)findViewById(R.id.goToAddIngredientsBtnId);
 
         mNameEditText = (EditText)findViewById(R.id.recipeNameId);
 
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.addRecipeLayout);
-        layout.setOnTouchListener(this);
-
-        mKeyBrdHider = new KeyboardHider(this);
+        mLayout = (RelativeLayout) findViewById(R.id.addRecipeLayout);
     }
 
     @Override
