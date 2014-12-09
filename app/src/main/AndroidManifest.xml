@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stefan.recipesuggestor"
-    android:name="com.example.stefan.Activities.ApplicationBase">
+    android:name="com.example.stefan.Activities.ApplicationBase"
+    package="com.example.stefan.recipesuggestor" >
 
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -31,17 +31,17 @@
         <activity
             android:name="com.example.stefan.Activities.SuggestRecipeActivity"
             android:label="@string/title_activity_suggest_recipe"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.example.stefan.Activities.AddIngredientsActivity"
             android:label="@string/title_activity_add_ingredients"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.example.stefan.Activities.AddSpicesActivity"
             android:label="@string/title_activity_add_spices"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name="com.example.stefan.Activities.RecipePreparingActivity"
@@ -54,6 +54,10 @@
         <activity
             android:name="com.example.stefan.Activities.HowToPrepareActivity"
             android:label="@string/title_activity_how_to_prepare" >
+        </activity>
+        <activity
+            android:name="com.example.stefan.Activities.RecipesGalleryActivity"
+            android:label="@string/title_activity_recipes_gallery" >
         </activity>
     </application>
 

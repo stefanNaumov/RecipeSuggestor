@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="color_black" type="color">#000</item>
+    <item name="color_light_beige" type="color">#968850</item>
+    <item name="color_light_orange" type="color">#F2AE4E</item>
+</resources>

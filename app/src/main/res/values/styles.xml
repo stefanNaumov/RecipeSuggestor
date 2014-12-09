@@ -42,7 +42,7 @@
         <item name="android:gravity">top|left</item>
     </style>
     <style name="transparentBackground">
-        <item name="android:background">#F2AE4E</item>
+        <item name="android:background">@color/color_light_orange</item>
         <item name="android:alpha">0.8</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">30sp</item>
@@ -51,7 +51,7 @@
         <item name="android:textSize">22sp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:alpha">0.8</item>
-        <item name="android:textColor">#968850</item>
+        <item name="android:textColor">@color/color_light_beige</item>
         <item name="android:textStyle">bold|italic</item>
     </style>
     <style name="paperBackgroundStyle">
@@ -59,6 +59,15 @@
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">25sp</item>
         <item name="android:alpha">0.8</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+    <style name="recipesGalleryGridStyle">
+        <item name="android:layout_height">370dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:numColumns">2</item>
+        <item name="android:divider">@color/color_black</item>
+        <item name="android:dividerHeight">2dp</item>
+        <item name="android:horizontalSpacing">10dp</item>
+        <item name="android:verticalSpacing">10dp</item>
     </style>
 </resources>

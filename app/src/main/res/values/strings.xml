@@ -31,5 +31,7 @@
     <string name="searchForRecipe">Search for recipe</string>
     <string name="toGallery">Gallery</string>
     <string name="preparing">Preparing</string>
+    <string name="title_activity_recipes_gallery">RecipesGalleryActivity</string>
+    <string name="newImage">New Image</string>
 
 </resources>

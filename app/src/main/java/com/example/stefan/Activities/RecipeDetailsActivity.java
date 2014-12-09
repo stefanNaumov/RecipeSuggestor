@@ -61,7 +61,7 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
         mSpicesAnimator = (TypeWriterAnimator)findViewById(R.id.recipeDetailsSpicesId);
 
         mPreparingBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
-        mToGalleryBtn = (Button)findViewById(R.id.recipeDetailsPreparingBtnId);
+        mToGalleryBtn = (Button)findViewById(R.id.recipeDetailsToGalleryBtnId);
     }
 
     @Override
@@ -109,7 +109,10 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
             startActivity(intent);
         }
          else if(mToGalleryBtn.getId() == view.getId()){
-            //TODO add Gallery activity and navigate to it
+           /* TODO put the recipes as extra in order to make a query
+            in the RecipesGalleryActivity based on it*/
+            Intent intent = new Intent(this,RecipesGalleryActivity.class);
+            startActivity(intent);
         }
     }
 
