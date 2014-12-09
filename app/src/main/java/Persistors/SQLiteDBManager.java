@@ -69,8 +69,22 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         close();
     }
 
+    public Recipe getById(int id){
+        String query = "SELECT " + SQLiteDBHelper.COLUMN_ID + ", "
+                + SQLiteDBHelper.COLUMN_NAME + ", "
+                + SQLiteDBHelper.COLUMN_INGREDIENTS + ", "
+                + SQLiteDBHelper.COLUMN_SPICES + ", "
+                + SQLiteDBHelper.COLUMN_PREPARING + ", "
+                + SQLiteDBHelper.COLUMN_TIMES_USED + " "
+                + "FROM " + SQLiteDBHelper.TABLE_RECIPES + " "
+                + "WHERE " + SQLiteDBHelper.COLUMN_ID + "= \"" +  id + "\"" ;
+
+        return this.getRecipeByQuery(query);
+    }
+
     public Recipe getByName(String name){
-        String query = "SELECT " + SQLiteDBHelper.COLUMN_NAME + ", "
+        String query = "SELECT " + SQLiteDBHelper.COLUMN_ID + ", "
+                + SQLiteDBHelper.COLUMN_NAME + ", "
                 + SQLiteDBHelper.COLUMN_INGREDIENTS + ", "
                 + SQLiteDBHelper.COLUMN_SPICES + ", "
                 + SQLiteDBHelper.COLUMN_PREPARING + ", "
@@ -78,28 +92,7 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
                 + "FROM " + SQLiteDBHelper.TABLE_RECIPES + " "
                 + "WHERE " + SQLiteDBHelper.COLUMN_NAME + "= \"" +  name + "\"" ;
 
-        String recipeName,ingredients,spices,preparing;
-        int timesUsed;
-        Recipe recipeModel;
-        try {
-            open();
-
-            Cursor cursor = db.rawQuery(query,null);
-
-            if (cursor.moveToFirst()){
-                recipeModel = this.mapModel(cursor);
-
-                return recipeModel;
-            }
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
-        finally {
-            close();
-        }
-
-        return null;
+        return this.getRecipeByQuery(query);
     }
 
     public List<Recipe> getAll(){
@@ -172,6 +165,29 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         return colleciton;
     }
 
+    private Recipe getRecipeByQuery(String query){
+        Recipe recipeModel;
+        try {
+            open();
+
+            Cursor cursor = db.rawQuery(query,null);
+
+            if (cursor.moveToFirst()){
+                recipeModel = this.mapModel(cursor);
+
+                return recipeModel;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+
+        return null;
+    }
+
     private void updateRecord(String username, ContentValues values){
         try {
             open();
@@ -185,10 +201,12 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
     }
 
     private Recipe mapModel(Cursor cursor){
+        int id;
         String recipeName,ingredients,spices,preparing;
         int timesUsed;
         Recipe recipeModel;
 
+        id = cursor.getInt(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_ID));
         recipeName = cursor.getString(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_NAME));
         ingredients = cursor.getString(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_INGREDIENTS));
         spices = cursor.getString(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_SPICES));
@@ -196,6 +214,7 @@ public class SQLiteDBManager  extends SQLiteDBHelper{
         timesUsed = cursor.getInt(cursor.getColumnIndex(SQLiteDBHelper.COLUMN_TIMES_USED));
 
         recipeModel = new Recipe(recipeName);
+        recipeModel.setId(id);
         recipeModel.setIngredients(ingredients);
         recipeModel.setSpices(spices);
         recipeModel.setPreparing(preparing);

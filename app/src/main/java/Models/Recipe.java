@@ -14,12 +14,14 @@ public class Recipe implements Serializable{
     private String preparing;
     private String ingredients;
     private String spices;
+    private int Id;
 
 
     public Recipe(String name){
         this.name = name;
         this.timesUsed = 0;
     }
+
 
     public String getName(){
         return this.name;
@@ -59,5 +61,13 @@ public class Recipe implements Serializable{
 
     public void setTimesUsed(int timesUsed){
         this.timesUsed = timesUsed;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        this.Id = id;
     }
 }
