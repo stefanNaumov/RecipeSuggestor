@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.stefan.Activities.CaptureImageActivity"
+    android:background="@drawable/chopping_board_plain">
+
+
+    <ImageView
+        style="@style/bigImageStyle"
+        android:id="@+id/captureImageImgViewId"
+         />
+
+    <Button
+        style="@style/nextButtonStyle"
+        android:layout_width="100dp"
+        android:text="@string/add"
+        android:id="@+id/captureImageAddBtnId"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="@style/nextButtonStyle"
+        android:text="Take New"
+        android:id="@+id/captureImageNewImageBtnId"
+        android:layout_toEndOf="@+id/captureImageAddBtnId"
+        android:layout_alignTop="@+id/captureImageAddBtnId"
+        android:layout_alignEnd="@+id/captureImageImgViewId" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/paper"
+        android:hint="@string/addImageDescription"
+        android:id="@+id/captureImageEditTextId"
+        android:layout_below="@+id/captureImageImgViewId"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/captureImageAddBtnId" />
+</RelativeLayout>

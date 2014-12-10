@@ -70,4 +70,9 @@
         <item name="android:horizontalSpacing">10dp</item>
         <item name="android:verticalSpacing">10dp</item>
     </style>
+    <style name="bigImageStyle">
+        <item name="android:layout_height">260dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
 </resources>

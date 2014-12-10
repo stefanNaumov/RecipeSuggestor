@@ -1,18 +1,41 @@
 package com.example.stefan.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.GridView;
 
 import com.example.stefan.recipesuggestor.R;
 
-public class RecipesGalleryActivity extends Activity {
+import Models.Recipe;
+
+public class RecipesGalleryActivity extends Activity implements View.OnClickListener{
+
+    private Button mNewImageBtn;
+    private GridView mGalleryGridView;
+    private Recipe mRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes_gallery);
+
+        this.initViews();
+        this.init();
+    }
+
+    private void init(){
+        mNewImageBtn.setOnClickListener(this);
+        mRecipe = (Recipe)getIntent().getSerializableExtra("Recipe");
+    }
+
+    private void initViews(){
+        mNewImageBtn = (Button)findViewById(R.id.recipesGalleryNewImageBtnId);
+        mGalleryGridView = (GridView)findViewById(R.id.recipesGalleryGridViewId);
     }
 
 
@@ -36,5 +59,16 @@ public class RecipesGalleryActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (mNewImageBtn.getId() == view.getId()){
+            //navigate to CaptureImageActivity
+            Intent intent = new Intent(this,CaptureImageActivity.class);
+            intent.putExtra("Recipe",mRecipe);
+
+            startActivity(intent);
+        }
     }
 }

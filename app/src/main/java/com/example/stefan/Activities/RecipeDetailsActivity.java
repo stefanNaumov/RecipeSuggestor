@@ -112,6 +112,7 @@ public class RecipeDetailsActivity extends Activity implements View.OnClickListe
            /* TODO put the recipes as extra in order to make a query
             in the RecipesGalleryActivity based on it*/
             Intent intent = new Intent(this,RecipesGalleryActivity.class);
+            intent.putExtra("Recipe",mRecipe);
             startActivity(intent);
         }
     }

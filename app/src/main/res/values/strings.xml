@@ -33,5 +33,7 @@
     <string name="preparing">Preparing</string>
     <string name="title_activity_recipes_gallery">RecipesGalleryActivity</string>
     <string name="newImage">New Image</string>
+    <string name="title_activity_capture_image">CaptureImageActivity</string>
+    <string name="addImageDescription">Add Image Description Here</string>
 
 </resources>
