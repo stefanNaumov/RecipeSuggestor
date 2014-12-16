@@ -53,10 +53,12 @@ public class MyRecipesActivity extends Activity implements AdapterView.OnItemCli
 
         mAllRecipeList = mDbManager.getSortedByName();
         //set all recipes in the container
-        mDefaultRecipeList = mAllRecipeList;
+        if (mAllRecipeList != null){
+            mDefaultRecipeList = mAllRecipeList;
 
-        mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mDefaultRecipeList);
-        mListView.setAdapter(mAdapter);
+            mAdapter = new RecipeAdapter(this,R.layout.main_list_row_recipe, mDefaultRecipeList);
+            mListView.setAdapter(mAdapter);
+        }
 
         mListView.setOnItemClickListener(this);
         mLayout.setOnTouchListener(this);
